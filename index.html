@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSec Portfolio | Terminal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Matrix rain effect */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .terminal-header {
+            background: #1a1a1a;
+            border: 2px solid #0f0;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .terminal-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .btn-red { background: #ff5f56; }
+        .btn-yellow { background: #ffbd2e; }
+        .btn-green { background: #27c93f; }
+
+        .terminal-title {
+            color: #0f0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        h1 {
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0;
+            margin: 20px 0;
+            font-size: 2.5em;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 10px #0f0; }
+            50% { text-shadow: 0 0 20px #0f0, 0 0 30px #0f0; }
+        }
+
+        .section {
+            background: rgba(0, 20, 0, 0.8);
+            border: 1px solid #0f0;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            position: relative;
+        }
+
+        .section::before {
+            content: '> ';
+            color: #0f0;
+        }
+
+        .section-title {
+            color: #0f0;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-decoration: underline;
+        }
+
+        .typing {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #0f0;
+            animation: typing 3s steps(40) 1s 1 normal both, blink 0.7s infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .skill-item {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #0f0;
+            padding: 15px;
+            transition: all 0.3s;
+        }
+
+        .skill-item:hover {
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            transform: translateX(5px);
+        }
+
+        .skill-item::before {
+            content: '[+] ';
+            color: #0f0;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            background: #000;
+            color: #0f0;
+            border: 2px solid #0f0;
+            padding: 12px 25px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-btn:hover {
+            background: #0f0;
+            color: #000;
+            box-shadow: 0 0 20px #0f0;
+            transform: scale(1.05);
+        }
+
+        .social-btn::before {
+            content: '$ ';
+        }
+
+        .command-line {
+            color: #0f0;
+            margin: 10px 0;
+        }
+
+        .command-line::before {
+            content: 'root@cybersec:~# ';
+            color: #ff0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: rgba(0, 0, 0, 0.7);
+            border-left: 3px solid #0f0;
+            padding: 15px;
+        }
+
+        .info-card h3 {
+            color: #0f0;
+            margin-bottom: 10px;
+        }
+
+        .warning {
+            color: #ff0;
+            animation: blink-warning 1s infinite;
+        }
+
+        @keyframes blink-warning {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .scanner {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px dashed #0f0;
+        }
+
+        .scan-line {
+            color: #0f0;
+            margin: 5px 0;
+        }
+
+        .scan-line::before {
+            content: '>>> ';
+            color: #ff0;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .social-links { flex-direction: column; }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #0f0;
+            border-top: 1px solid #0f0;
+            margin-top: 40px;
+        }
+
+        .ascii-art {
+            white-space: pre;
+            color: #0f0;
+            font-size: 10px;
+            line-height: 1;
+            overflow-x: auto;
+        }
+
+        .profile-section {
+            margin: 30px 0;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid #0f0;
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(0, 255, 0, 0.8);
+            }
+        }
+
+        .image-scanner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #0f0;
+            box-shadow: 0 0 10px #0f0;
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
+
+        .profile-info {
+            text-align: center;
+        }
+
+        .title-subtitle {
+            color: #0f0;
+            font-size: 1.2em;
+            margin-top: 10px;
+            text-shadow: 0 0 10px #0f0;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+            }
+            
+            .profile-image-wrapper {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .cert-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #0f0;
+            padding: 15px;
+            transition: all 0.3s;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
+        }
+
+        .cert-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border: 1px solid #0f0;
+            margin-bottom: 10px;
+        }
+
+        .cert-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .cert-card:hover .cert-image {
+            transform: scale(1.05);
+        }
+
+        .cert-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .cert-card:hover .cert-overlay {
+            opacity: 1;
+        }
+
+        .cert-overlay p {
+            color: #0f0;
+            font-weight: bold;
+            text-shadow: 0 0 10px #0f0;
+        }
+
+        .cert-name {
+            color: #0f0;
+            margin-top: 10px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-bg"></canvas>
+    
+    <div class="container">
+        <div class="terminal-header">
+            <div class="terminal-bar">
+                <span class="terminal-btn btn-red"></span>
+                <span class="terminal-btn btn-yellow"></span>
+                <span class="terminal-btn btn-green"></span>
+            </div>
+            <div class="terminal-title">SECURE TERMINAL v2.0 - AUTHENTICATED</div>
+        </div>
+
+        <div class="ascii-art">
+   ____      _                 ____                      _ _         
+  / ___|   _| |__   ___ _ __  / ___|  ___  ___ _   _ _ __(_) |_ _   _ 
+ | |  | | | | '_ \ / _ \ '__| \___ \ / _ \/ __| | | | '__| | __| | | |
+ | |__| |_| | |_) |  __/ |     ___) |  __/ (__| |_| | |  | | |_| |_| |
+  \____\__, |_.__/ \___|_|    |____/ \___|\___|\__,_|_|  |_|\__|\__, |
+       |___/                                                     |___/ 
+        </div>
+
+        <div class="profile-section">
+            <div class="profile-container">
+                <div class="profile-image-wrapper">
+                    <img src="https://i.imgur.com/0PWrIxR.jpeg" alt="MD. Atikur Rahman" class="profile-image" id="profileImg" onerror="this.style.display='none'; document.getElementById('placeholderDiv').style.display='flex';">
+                    <div id="placeholderDiv" style="display: none; width: 200px; height: 200px; border-radius: 50%; border: 3px solid #0f0; background: rgba(0,255,0,0.1); align-items: center; justify-content: center; font-size: 60px; color: #0f0; box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);">
+                        👤
+                    </div>
+                    <div class="image-scanner"></div>
+                </div>
+                <div class="profile-info">
+                    <h1 class="typing">MD. ATIKUR RAHMAN</h1>
+                    <p class="title-subtitle">CYBER SECURITY EXPERT</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="scanner">
+            <div class="scan-line">Initiating system scan...</div>
+            <div class="scan-line">Loading portfolio modules...</div>
+            <div class="scan-line">Authentication: <span style="color: #0f0;">SUCCESS</span></div>
+            <div class="scan-line"><span class="warning">⚠ WARNING: Highly skilled professional detected ⚠</span></div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">ABOUT_ME.txt</h2>
+            <p class="command-line">cat about.txt</p>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🎓 Education</h3>
+                    <p><strong>Bachelor's Degree</strong></p>
+                    <p>Lincoln University College</p>
+                    <p>Malaysia</p>
+                </div>
+                <div class="info-card">
+                    <h3>💼 Profession</h3>
+                    <p><strong>Cyber Security Specialist</strong></p>
+                    <p>Penetration Testing | Security Analysis</p>
+                    <p>Ethical Hacking | Network Security</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px;">Passionate about cybersecurity, ethical hacking, and protecting digital assets. Experienced in vulnerability assessment, penetration testing, and security hardening.</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">SKILLS.db</h2>
+            <p class="command-line">SELECT * FROM skills WHERE level='EXPERT';</p>
+            <div class="skills-grid">
+                <div class="skill-item">Penetration Testing</div>
+                <div class="skill-item">Network Security</div>
+                <div class="skill-item">Ethical Hacking</div>
+                <div class="skill-item">Vulnerability Assessment</div>
+                <div class="skill-item">OSINT (Open Source Intelligence)</div>
+                <div class="skill-item">Malware Analysis</div>
+                <div class="skill-item">Web Application Security</div>
+                <div class="skill-item">Linux/Unix Systems</div>
+                <div class="skill-item">Python & Bash Scripting</div>
+                <div class="skill-item">Cryptography</div>
+                <div class="skill-item">Security Hardening</div>
+                <div class="skill-item">Incident Response</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">TOOLS.arsenal</h2>
+            <p class="command-line">ls -la /tools/</p>
+            <div class="skills-grid">
+                <div class="skill-item">Kali Linux</div>
+                <div class="skill-item">Metasploit Framework</div>
+                <div class="skill-item">Burp Suite</div>
+                <div class="skill-item">Wireshark</div>
+                <div class="skill-item">Nmap</div>
+                <div class="skill-item">John the Ripper</div>
+                <div class="skill-item">Aircrack-ng</div>
+                <div class="skill-item">SQLmap</div>
+                <div class="skill-item">OWASP ZAP</div>
+                <div class="skill-item">Nikto</div>
+                <div class="skill-item">Hashcat</div>
+                <div class="skill-item">Hydra</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">CONNECT.sh</h2>
+            <p class="command-line">./establish_connection.sh</p>
+            <div class="social-links">
+                <a href="https://github.com/yourusername" target="_blank" class="social-btn">GitHub</a>
+                <a href="https://instagram.com/yourusername" target="_blank" class="social-btn">Instagram</a>
+                <a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" class="social-btn">WhatsApp</a>
+                <a href="https://linkedin.com/in/yourusername" target="_blank" class="social-btn">LinkedIn</a>
+                <a href="mailto:your.email@example.com" class="social-btn">Email</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">CERTIFICATIONS.crt</h2>
+            <p class="command-line">openssl x509 -in certifications.crt -text</p>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-image-wrapper">
+                        <img src="https://i.imgur.com/vnYYOGL.png" alt="Certificate 1" class="cert-image">
+                        <div class="cert-overlay">
+                            <p>Click to view</p>
+                        </div>
+                    </div>
+                    <p class="cert-name">[+]  Data Analysis Certificate </p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-image-wrapper">
+                        <img src="https://i.imgur.com/5YNB41f.jpeg" alt="Certificate 2" class="cert-image">
+                        <div class="cert-overlay">
+                            <p>Click to view</p>
+                        </div>
+                    </div>
+                    <p class="cert-name">[+] Certificate IEEE </p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-image-wrapper">
+                        <img src="https://i.imgur.com/9kFrzUL.jpeg" alt="Certificate 3" class="cert-image">
+                        <div class="cert-overlay">
+                            <p>Click to view</p>
+                        </div>
+                    </div>
+                    <p class="cert-name">[+] Certificate NextGen Tech</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="command-line">echo "System secured and operational"</p>
+            <p>© 2026 Cyber Security Portfolio | All Rights Reserved</p>
+            <p style="margin-top: 10px; color: #ff0;">⚠ Unauthorized access is prohibited ⚠</p>
+        </div>
+    </div>
+
+    <script>
+        // Matrix rain effect
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン01';
+        const charArray = chars.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Add glitch effect to title
+        const title = document.querySelector('h1');
+        setInterval(() => {
+            if (Math.random() > 0.95) {
+                title.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+                setTimeout(() => {
+                    title.style.transform = 'translate(0, 0)';
+                }, 100);
+            }
+        }, 200);
+    </script>
+</body>
+</html>
