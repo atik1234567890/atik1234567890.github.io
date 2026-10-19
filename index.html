@@ -139,6 +139,8 @@
             border: 3px solid var(--primary);
             box-shadow: 0 0 30px rgba(0, 255, 157, 0.4);
             flex-shrink: 0;
+            background: #07120d;
+            cursor: pointer;
         }
 
         .profile-image {
@@ -156,6 +158,7 @@
             background: var(--primary);
             box-shadow: 0 0 12px var(--primary);
             animation: scan 3s linear infinite;
+            z-index: 3;
         }
 
         @keyframes scan {
@@ -428,7 +431,7 @@
         /* Certifications Grid */
         .cert-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
             gap: 20px;
         }
 
@@ -453,7 +456,7 @@
         .cert-visual {
             position: relative;
             width: 100%;
-            height: 175px;
+            height: 180px;
             overflow: hidden;
             border: 1px solid rgba(0, 255, 157, 0.25);
             border-radius: 4px;
@@ -473,6 +476,7 @@
             object-fit: cover;
             position: absolute;
             inset: 0;
+            z-index: 1;
             transition: transform 0.3s;
         }
 
@@ -480,9 +484,17 @@
             transform: scale(1.06);
         }
 
+        .cert-fallback {
+            z-index: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
         .cert-badge-icon {
-            font-size: 2.6em;
-            margin-bottom: 8px;
+            font-size: 2.5em;
+            margin-bottom: 6px;
         }
 
         .cert-badge-org {
@@ -494,7 +506,7 @@
 
         .cert-badge-status {
             color: var(--primary);
-            font-size: 0.75em;
+            font-size: 0.74em;
             margin-top: 6px;
             border: 1px solid var(--primary);
             padding: 2px 8px;
@@ -524,7 +536,7 @@
             padding: 6px 14px;
             font-size: 12px;
             border-radius: 4px;
-            background: rgba(0, 20, 12, 0.9);
+            background: rgba(0, 20, 12, 0.95);
             font-weight: 600;
         }
 
@@ -537,13 +549,13 @@
 
         .cert-name {
             color: var(--text-main);
-            font-size: 0.98em;
+            font-size: 0.96em;
             font-weight: 600;
         }
 
         .cert-issuer {
             color: var(--text-muted);
-            font-size: 0.82em;
+            font-size: 0.8em;
             margin-top: 4px;
         }
 
@@ -583,7 +595,7 @@
             position: fixed;
             z-index: 999;
             inset: 0;
-            background: rgba(2, 6, 4, 0.88);
+            background: rgba(2, 6, 4, 0.9);
             backdrop-filter: blur(6px);
             align-items: center;
             justify-content: center;
@@ -598,9 +610,9 @@
             background: #07120d;
             border: 2px solid var(--primary);
             border-radius: 8px;
-            max-width: 680px;
+            max-width: 700px;
             width: 100%;
-            max-height: 88vh;
+            max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 0 40px rgba(0, 255, 157, 0.35);
             animation: modalPop 0.2s ease-out;
@@ -662,13 +674,32 @@
 
         .modal-img-preview {
             width: 100%;
-            max-height: 360px;
+            max-height: 380px;
             object-fit: contain;
             border: 1px solid var(--border-glow);
             border-radius: 4px;
             margin-bottom: 16px;
             background: #000;
             display: none;
+        }
+
+        .modal-ext-btn {
+            display: none;
+            background: rgba(0, 255, 157, 0.12);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 16px;
+            transition: all 0.25s;
+        }
+
+        .modal-ext-btn:hover {
+            background: var(--primary);
+            color: #000;
         }
 
         .modal-text {
@@ -705,6 +736,7 @@
             color: var(--primary);
             border-radius: 0 4px 4px 0;
             overflow-x: auto;
+            white-space: pre-wrap;
         }
 
         .footer {
@@ -750,9 +782,8 @@
         <!-- Hero Section -->
         <section class="profile-section">
             <div class="profile-container">
-                <div class="profile-image-wrapper">
-                    <img src="https://i.imgur.com/0PWrIxR.jpeg" alt="MD Atikur Rahman" class="profile-image" onerror="this.style.display='none'; document.getElementById('placeholderDiv').style.display='flex';">
-                    <div id="placeholderDiv" style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 60px; color: var(--primary);">👤</div>
+                <div class="profile-image-wrapper" onclick="window.open('https://imgur.com/a/V20N7am', '_blank')" title="Click to view full profile photo">
+                    <img id="heroProfileImg" src="https://i.imgur.com/0PWrIxR.jpeg" alt="MD Atikur Rahman" class="profile-image">
                     <div class="image-scanner"></div>
                 </div>
                 <div class="profile-info">
@@ -769,7 +800,7 @@
         <!-- Interactive Instruction Banner -->
         <div class="scanner">
             <div class="scan-line">System modules loaded: <strong style="color: var(--primary);">Phantom, BicharBD, SentinelX, CyberMentor AI</strong></div>
-            <div class="scan-line"><span class="warning">💡 INTERACTIVE TERMINAL: Click on any Project, Skill, Tool, or Certificate below to inspect technical details!</span></div>
+            <div class="scan-line"><span class="warning">💡 INTERACTIVE TERMINAL: Click on any Project, Skill, Tool, or Certificate below to inspect full details!</span></div>
         </div>
 
         <!-- Experience & Education -->
@@ -975,57 +1006,66 @@
             </div>
         </section>
 
-        <!-- Certifications (Ordered strictly: Cisco x2 -> KC7 -> IEEE -> NextGen & Data Analysis) -->
+        <!-- Certifications (Ordered strictly: Cisco EH -> Cisco Intro -> KC7 Titan Shield -> IEEE -> NextGen & Data Analysis) -->
         <section id="certs" class="section">
             <h2 class="section-title">CERTIFICATIONS.crt</h2>
             <div class="command-line">
                 <span class="prompt">openssl x509 -in verified_credentials.crt -text</span>
-                <span class="click-hint">[Click any certificate to view details & credential]</span>
+                <span class="click-hint">[Click any certificate to inspect & view original]</span>
             </div>
             <div class="cert-grid">
                 <!-- 1. Cisco Ethical Hacker -->
                 <div class="cert-card" onclick="inspectItem('cert_cisco_eh')">
                     <div>
                         <div class="cert-visual">
-                            <div class="cert-badge-icon">🛡️</div>
-                            <div class="cert-badge-org">CISCO NETWORKING ACADEMY</div>
-                            <div class="cert-badge-status">✓ Verified • Issued Feb 2026</div>
-                            <div class="cert-overlay"><span>🔍 Click to Inspect Credential</span></div>
+                            <img id="img_cisco_eh" src="https://i.imgur.com/vAjm9Hm.jpeg" alt="Ethical Hacker" class="cert-image" onerror="this.style.display='none'">
+                            <div class="cert-fallback">
+                                <div class="cert-badge-icon">🛡️</div>
+                                <div class="cert-badge-org">CISCO NETWORKING ACADEMY</div>
+                                <div class="cert-badge-status">✓ Ethical Hacker • Feb 2026</div>
+                            </div>
+                            <div class="cert-overlay"><span>🔍 Click to View Certificate</span></div>
                         </div>
-                        <span class="cert-order-tag">01 // OFFENSIVE SECURITY</span>
+                        <span class="cert-order-tag">01 // CISCO OFFENSIVE SECURITY</span>
                         <p class="cert-name">[+] Ethical Hacker</p>
                     </div>
-                    <p class="cert-issuer">Cisco Networking Academy • Penetration Testing & Exploitation</p>
+                    <p class="cert-issuer">Cisco Networking Academy • Issued Feb 2026</p>
                 </div>
 
                 <!-- 2. Cisco Intro to Cybersecurity -->
                 <div class="cert-card" onclick="inspectItem('cert_cisco_intro')">
                     <div>
                         <div class="cert-visual">
-                            <div class="cert-badge-icon">🔐</div>
-                            <div class="cert-badge-org">CISCO NETWORKING ACADEMY</div>
-                            <div class="cert-badge-status">✓ Verified • Issued Jan 2026</div>
-                            <div class="cert-overlay"><span>🔍 Click to Inspect Credential</span></div>
+                            <img id="img_cisco_intro" src="https://i.imgur.com/geNjIX6.jpeg" alt="Introduction to Cybersecurity" class="cert-image" onerror="this.style.display='none'">
+                            <div class="cert-fallback">
+                                <div class="cert-badge-icon">🔐</div>
+                                <div class="cert-badge-org">CISCO NETWORKING ACADEMY</div>
+                                <div class="cert-badge-status">✓ Intro to Cybersecurity • Jan 2026</div>
+                            </div>
+                            <div class="cert-overlay"><span>🔍 Click to View Certificate</span></div>
                         </div>
-                        <span class="cert-order-tag">02 // DEFENSIVE FOUNDATIONS</span>
+                        <span class="cert-order-tag">02 // CISCO CYBER DEFENSE</span>
                         <p class="cert-name">[+] Introduction to Cybersecurity</p>
                     </div>
-                    <p class="cert-issuer">Cisco Networking Academy • Threat Detection & Cyber Defense</p>
+                    <p class="cert-issuer">Cisco Networking Academy • Issued Jan 2026</p>
                 </div>
 
-                <!-- 3. KC7 Cyber Detective -->
+                <!-- 3. KC7 Titan Shield & Cyber Detective -->
                 <div class="cert-card" onclick="inspectItem('cert_kc7')">
                     <div>
                         <div class="cert-visual">
-                            <div class="cert-badge-icon">🕵️‍♂️</div>
-                            <div class="cert-badge-org">KC7: THE CYBER DETECTIVE GAME</div>
-                            <div class="cert-badge-status">✓ 3 Modules Completed • Oct 2026</div>
-                            <div class="cert-overlay"><span>🔍 Click to View KC7 Modules</span></div>
+                            <img id="img_kc7" src="https://i.imgur.com/3kdiQKw.jpeg" alt="KC7 Titan Shield" class="cert-image" onerror="this.style.display='none'">
+                            <div class="cert-fallback">
+                                <div class="cert-badge-icon">🕵️‍♂️</div>
+                                <div class="cert-badge-org">KC7: THE CYBER DETECTIVE GAME</div>
+                                <div class="cert-badge-status">✓ Titan Shield (#95926) • Oct 2026</div>
+                            </div>
+                            <div class="cert-overlay"><span>🔍 Click to View KC7 Credential</span></div>
                         </div>
-                        <span class="cert-order-tag">03 // THREAT INTELLIGENCE & KQL</span>
-                        <p class="cert-name">[+] KC7 Cyber Detective (Valdorian Times, Rap Beef, Titan Shield)</p>
+                        <span class="cert-order-tag">03 // KC7 THREAT INTELLIGENCE</span>
+                        <p class="cert-name">[+] KC7: Titan Shield (with Rap Beef & Valdorian Times)</p>
                     </div>
-                    <p class="cert-issuer">Credential IDs: 96243, 95962, 95926</p>
+                    <p class="cert-issuer">KC7 Cyber Detective • IDs: 95926, 95962, 96243</p>
                 </div>
 
                 <!-- 4. IEEE Certificate -->
@@ -1035,8 +1075,8 @@
                             <img src="https://i.imgur.com/5YNB41f.jpeg" alt="IEEE Certificate" class="cert-image">
                             <div class="cert-overlay"><span>🔍 Click to Expand & Read</span></div>
                         </div>
-                        <span class="cert-order-tag">04 // TECHNICAL EXCELLENCE</span>
-                        <p class="cert-name">[+] IEEE Certificate</p>
+                        <span class="cert-order-tag">04 // IEEE RECOGNITION</span>
+                        <p class="cert-name">[+] Certificate IEEE</p>
                     </div>
                     <p class="cert-issuer">IEEE Technical Credential</p>
                 </div>
@@ -1100,7 +1140,8 @@
             <div class="modal-body">
                 <h3 id="modalTitle" class="modal-title">Title</h3>
                 <p id="modalSubtitle" class="modal-subtitle">Subtitle</p>
-                <img id="modalImage" class="modal-img-preview" src="" alt="Preview">
+                <img id="modalImage" class="modal-img-preview" src="" alt="Preview" onerror="this.style.display='none'">
+                <a id="modalExtLink" href="#" target="_blank" rel="noopener noreferrer" class="modal-ext-btn">🔗 Open High-Res Certificate on Imgur ↗</a>
                 <p id="modalDesc" class="modal-text"></p>
                 <ul id="modalBullets" class="modal-highlights"></ul>
                 <div id="modalCode" class="modal-code"></div>
@@ -1109,6 +1150,35 @@
     </div>
 
     <script>
+        // Auto-resolve Imgur album links if public API allows
+        const imgurAlbums = [
+            { albumId: 'V20N7am', elId: 'heroProfileImg', dbKey: null },
+            { albumId: 'vAjm9Hm', elId: 'img_cisco_eh', dbKey: 'cert_cisco_eh' },
+            { albumId: 'geNjIX6', elId: 'img_cisco_intro', dbKey: 'cert_cisco_intro' },
+            { albumId: '3kdiQKw', elId: 'img_kc7', dbKey: 'cert_kc7' }
+        ];
+
+        imgurAlbums.forEach(item => {
+            fetch(`https://api.imgur.com/3/album/${item.albumId}/images`, {
+                headers: { 'Authorization': 'Client-ID 546c25a59c58ad7' }
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data && data.data && data.data.length > 0) {
+                    const directUrl = data.data[0].link;
+                    const el = document.getElementById(item.elId);
+                    if (el) {
+                        el.src = directUrl;
+                        el.style.display = 'block';
+                    }
+                    if (item.dbKey && detailsDB[item.dbKey]) {
+                        detailsDB[item.dbKey].image = directUrl;
+                    }
+                }
+            })
+            .catch(() => {});
+        });
+
         // Database of Interactive Details for Every Item
         const detailsDB = {
             intern: {
@@ -1139,7 +1209,7 @@
                 cmd: "./phantom --info --architecture",
                 title: "🕵️‍♂️ Phantom — Flagship Security Framework",
                 subtitle: "Dual-Use Offensive & Defensive Security Tooling",
-                desc: "My primary flagship project built to streamline reconnaissance, vulnerability identification, and proactive defense workflows.",
+                desc: "My #1 flagship project built to streamline reconnaissance, vulnerability identification, and proactive defense workflows.",
                 bullets: [
                     "Automates multi-stage reconnaissance and surface mapping against authorized targets.",
                     "Integrates vulnerability scanning logic to detect misconfigurations and exposed services rapidly.",
@@ -1265,7 +1335,7 @@
                     "Bash / PowerShell: Linux recon pipelines (CyberMentor AI), system auditing, task automation.",
                     "TypeScript / React: Interactive SOC dashboards, threat heatmaps, and secure web interfaces."
                 ],
-                code: "Languages: Python (25%+), TypeScript (56%+), Bash, PowerShell, JavaScript, SQL"
+                code: "Languages: Python, TypeScript, Bash, PowerShell, JavaScript, SQL"
             },
             skill_linux: {
                 cmd: "uname -a && cat /etc/os-release",
@@ -1286,7 +1356,7 @@
                 desc: "Analyzing security telemetry to detect, contain, and investigate cyber intrusions across endpoints and networks.",
                 bullets: [
                     "Investigating phishing, malware execution, lateral movement, and data exfiltration scenarios.",
-                    "Experienced in KQL-style cyber detective investigations (KC7 Valdorian Times, Rap Beef, Titan Shield).",
+                    "Experienced in KQL-style cyber detective investigations (KC7 Titan Shield, Rap Beef, Valdorian Times).",
                     "Designing AI-assisted alert triage workflows in SentinelX to reduce analyst fatigue."
                 ],
                 code: "$ triage_flow: Detect -> Scope -> Contain -> Eradicate -> Post-Incident Review"
@@ -1395,43 +1465,50 @@
                 cmd: "verify-cert --issuer 'Cisco Networking Academy' --name 'Ethical Hacker'",
                 title: "Ethical Hacker — Cisco Networking Academy",
                 subtitle: "Issued Feb 2026 • Verified Credential",
+                image: "https://i.imgur.com/vAjm9Hm.jpeg",
+                extUrl: "https://imgur.com/a/vAjm9Hm",
                 desc: "Comprehensive offensive security certification covering the mindset, methodology, and hands-on tools of professional ethical hacking.",
                 bullets: [
                     "Key Skills: Ethical Hacking, Penetration Testing, Vulnerability Scanning, Reconnaissance.",
                     "Exploitation of web applications, networks, and system vulnerabilities in lab environments.",
                     "Reporting and remediation strategies for discovered security flaws."
                 ],
-                code: "Status: VERIFIED | Organization: Cisco Networking Academy (Feb 2026)"
+                code: "Credential URL: https://imgur.com/a/vAjm9Hm | Issued: Feb 2026"
             },
             cert_cisco_intro: {
                 cmd: "verify-cert --issuer 'Cisco Networking Academy' --name 'Introduction to Cybersecurity'",
                 title: "Introduction to Cybersecurity — Cisco",
                 subtitle: "Issued Jan 2026 • Verified Credential",
+                image: "https://i.imgur.com/geNjIX6.jpeg",
+                extUrl: "https://imgur.com/a/geNjIX6",
                 desc: "Foundational certification establishing core principles of cyber defense, threat landscapes, and organizational security posture.",
                 bullets: [
                     "Key Skills: Cybersecurity, Threat Detection, Network Defense, Security Controls.",
                     "Analyzing types of malware, social engineering, and network-based attacks.",
                     "Implementing CIA triad principles (Confidentiality, Integrity, Availability)."
                 ],
-                code: "Status: VERIFIED | Organization: Cisco Networking Academy (Jan 2026)"
+                code: "Credential URL: https://imgur.com/a/geNjIX6 | Issued: Jan 2026"
             },
             cert_kc7: {
-                cmd: "verify-cert --issuer 'KC7 Cyber Detective' --ids 96243,95962,95926",
-                title: "KC7: The Cyber Detective Game (3 Credentials)",
+                cmd: "verify-cert --issuer 'KC7 Cyber Detective' --module 'Titan Shield'",
+                title: "KC7: Titan Shield (with Rap Beef & Valdorian Times)",
                 subtitle: "Issued Oct 2026 • Threat Intelligence & KQL Intrusion Analysis",
-                desc: "Completed multiple hands-on cyber threat intelligence and SOC investigation challenges using real-world telemetry and Kusto Query Language (KQL).",
+                image: "https://i.imgur.com/3kdiQKw.jpeg",
+                extUrl: "https://imgur.com/a/3kdiQKw",
+                desc: "Completed hands-on cyber threat intelligence and SOC investigation challenges using real-world telemetry and Kusto Query Language (KQL).",
                 bullets: [
-                    "Valdorian Times (Credential ID: 96243) — Investigated phishing, C2 traffic, and APT activity.",
+                    "Titan Shield (Credential ID: 95926) — Deep-dive threat hunting, log correlation, and adversary attribution.",
                     "Rap Beef (Credential ID: 95962) — Analyzed endpoint logs, DNS telemetry, and attacker pivoting.",
-                    "Titan Shield (Credential ID: 95926) — Conducted deep-dive threat hunting and attribution."
+                    "Valdorian Times (Credential ID: 96243) — Investigated phishing campaigns, C2 traffic, and APT activity."
                 ],
-                code: "Credentials: Valdorian Times (#96243) | Rap Beef (#95962) | Titan Shield (#95926)"
+                code: "Credential URL: https://imgur.com/a/3kdiQKw | IDs: #95926, #95962, #96243"
             },
             cert_ieee: {
                 cmd: "open_credential --file ieee_certificate.jpg",
                 title: "IEEE Technical Certificate",
                 subtitle: "IEEE Verified Recognition",
                 image: "https://i.imgur.com/5YNB41f.jpeg",
+                extUrl: "https://i.imgur.com/5YNB41f.jpeg",
                 desc: "Official certificate awarded by IEEE recognizing technical participation and engineering excellence.",
                 bullets: [
                     "Demonstrates commitment to international engineering standards and technical community engagement."
@@ -1443,6 +1520,7 @@
                 title: "Certificate NextGen Tech",
                 subtitle: "Emerging Technology & Security Credential",
                 image: "https://i.imgur.com/9kFrzUL.jpeg",
+                extUrl: "https://i.imgur.com/9kFrzUL.jpeg",
                 desc: "Credential recognizing proficiency in modern next-generation computing and security technologies.",
                 bullets: [
                     "Focused on practical technology innovation and modern software/security paradigms."
@@ -1454,6 +1532,7 @@
                 title: "Data Analysis Certificate",
                 subtitle: "Analytics & Telemetry Processing",
                 image: "https://i.imgur.com/vnYYOGL.png",
+                extUrl: "https://i.imgur.com/vnYYOGL.png",
                 desc: "Certification in data analysis, supporting my work in security log parsing, anomaly detection, and crime/threat heatmaps.",
                 bullets: [
                     "Applied directly when building data visualization dashboards for BicharBD and alert triage in SentinelX."
@@ -1478,6 +1557,14 @@
             } else {
                 imgEl.style.display = 'none';
                 imgEl.src = '';
+            }
+
+            const extBtn = document.getElementById('modalExtLink');
+            if (item.extUrl) {
+                extBtn.href = item.extUrl;
+                extBtn.style.display = 'inline-block';
+            } else {
+                extBtn.style.display = 'none';
             }
 
             const ul = document.getElementById('modalBullets');
