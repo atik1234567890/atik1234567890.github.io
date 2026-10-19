@@ -3,22 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Md Atikur Rahman — Security Researcher & Tool Builder</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>MD Atikur Rahman | Ethical Hacker & Security Tool Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #090d16;
-            --bg-surface: #111827;
-            --bg-card: rgba(17, 24, 39, 0.75);
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(56, 189, 248, 0.4);
-            --accent-primary: #38bdf8;
-            --accent-secondary: #10b981;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
+            --bg-dark: #050807;
+            --card-bg: rgba(8, 20, 15, 0.88);
+            --primary: #00ff9d;
+            --secondary: #00e5ff;
+            --warning: #ffb800;
+            --text-main: #e2f1eb;
+            --text-muted: #8aa69b;
+            --border-glow: rgba(0, 255, 157, 0.35);
         }
 
         * {
@@ -29,755 +25,1531 @@
         }
 
         body {
-            background-color: var(--bg-base);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.07) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
-            color: var(--text-primary);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.65;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Fira Code', 'Courier New', monospace;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.08;
+            pointer-events: none;
         }
 
         .container {
-            max-width: 1080px;
+            max-width: 1150px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Navbar */
-        .navbar {
+        /* Sticky Terminal Header */
+        .terminal-header {
+            background: rgba(10, 22, 16, 0.95);
+            border: 1px solid var(--primary);
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 25px rgba(0, 255, 157, 0.15);
+            backdrop-filter: blur(10px);
             position: sticky;
-            top: 0;
+            top: 10px;
             z-index: 100;
-            background: rgba(9, 13, 22, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 16px 0;
-        }
-
-        .nav-content {
+            border-radius: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .brand {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--text-primary);
+        .terminal-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .btn-red { background: #ff5f56; }
+        .btn-yellow { background: #ffbd2e; }
+        .btn-green { background: #27c93f; }
+
+        .terminal-title {
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
             text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 8px var(--primary);
+        }
+
+        /* Hero Section */
+        .profile-section {
+            margin: 25px 0;
+            padding: 35px 25px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.1);
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            width: 185px;
+            height: 185px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.4);
+            flex-shrink: 0;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-scanner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            box-shadow: 0 0 12px var(--primary);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(0, 255, 157, 0.12);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 4px 12px;
+            font-size: 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            color: var(--primary);
+            text-shadow: 0 0 12px rgba(0, 255, 157, 0.5);
+            font-size: 2.35em;
+            margin-bottom: 8px;
+        }
+
+        .title-subtitle {
+            color: var(--secondary);
+            font-size: 1.05em;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .hero-bio {
+            color: var(--text-muted);
+            font-size: 0.94em;
+            max-width: 650px;
+        }
+
+        /* Interactive Hint Banner */
+        .scanner {
+            margin: 20px 0;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px dashed var(--primary);
+            border-radius: 6px;
+            font-size: 0.88em;
+        }
+
+        .scan-line {
+            color: var(--text-main);
+            margin: 4px 0;
+        }
+
+        .scan-line::before {
+            content: '>>> ';
+            color: var(--secondary);
+        }
+
+        .warning {
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        /* Sections */
+        .section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.08);
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.4em;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .brand-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent-secondary);
-            box-shadow: 0 0 10px var(--accent-secondary);
+        .section-title::before {
+            content: '>';
+            color: var(--secondary);
         }
 
-        .nav-links {
-            display: flex;
-            gap: 28px;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 80px 0 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 48px;
-            flex-wrap: wrap-reverse;
-        }
-
-        .hero-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.25);
-            color: var(--accent-secondary);
-            padding: 5px 14px;
-            border-radius: 999px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-
-        .status-pill span {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--accent-secondary);
-        }
-
-        .hero h1 {
-            font-size: 2.75rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-            margin-bottom: 12px;
-        }
-
-        .hero-role {
-            font-size: 1.15rem;
-            color: var(--accent-primary);
-            font-weight: 500;
+        .command-line {
+            color: var(--text-muted);
+            font-size: 0.88em;
             margin-bottom: 18px;
-        }
-
-        .hero-desc {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            max-width: 600px;
-            margin-bottom: 28px;
-        }
-
-        .hero-actions {
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.15);
             display: flex;
-            gap: 14px;
+            justify-content: space-between;
             flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .btn {
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: var(--text-primary);
-            color: var(--bg-base);
-        }
-
-        .btn-primary:hover {
-            background: #e2e8f0;
-            transform: translateY(-1px);
-        }
-
-        .btn-outline {
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text-primary);
-            border: 1px solid var(--border-subtle);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--accent-primary);
-            background: rgba(56, 189, 248, 0.06);
-        }
-
-        .hero-avatar-wrapper {
-            width: 175px;
-            height: 175px;
-            border-radius: 50%;
-            padding: 4px;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            flex-shrink: 0;
-        }
-
-        .hero-avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--bg-base);
-        }
-
-        /* Section Styling */
-        section {
-            padding: 50px 0;
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .section-header {
-            margin-bottom: 32px;
-        }
-
-        .section-label {
-            color: var(--accent-primary);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+        .command-line span.prompt::before {
+            content: 'root@atik-sec:~# ';
+            color: var(--warning);
             font-weight: 600;
-            display: block;
-            margin-bottom: 6px;
         }
 
-        .section-title {
-            font-size: 1.65rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
+        .click-hint {
+            color: var(--secondary);
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+
+        /* Clickable Cards General */
+        .clickable-card {
+            cursor: pointer;
+            position: relative;
+            transition: all 0.28s ease;
+        }
+
+        .clickable-card:hover {
+            border-color: var(--primary) !important;
+            transform: translateY(-4px);
+            box-shadow: 0 6px 22px rgba(0, 255, 157, 0.22);
+        }
+
+        /* Experience & Education Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .info-card {
+            background: rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(0, 255, 157, 0.25);
+            border-left: 3px solid var(--primary);
+            padding: 18px;
+            border-radius: 6px;
+        }
+
+        .info-card h3 {
+            color: var(--secondary);
+            margin-bottom: 6px;
+            font-size: 1.1em;
+        }
+
+        .info-card .meta {
+            color: var(--primary);
+            font-size: 0.83em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .inspect-tag {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 11px;
+            color: var(--primary);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(0, 255, 157, 0.06);
         }
 
         /* Projects Grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-            gap: 22px;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 20px;
         }
 
         .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            padding: 26px;
+            background: rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 6px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.25s ease;
         }
 
-        .project-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
-        }
-
-        .project-top {
+        .project-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
+            align-items: flex-start;
+            margin-bottom: 10px;
         }
 
-        .project-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
+        .project-title {
+            color: var(--primary);
+            font-size: 1.2em;
+            font-weight: 700;
         }
 
-        .project-badge {
-            font-size: 0.75rem;
-            padding: 3px 10px;
-            border-radius: 999px;
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent-primary);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-        }
-
-        .project-desc {
-            color: var(--text-secondary);
-            font-size: 0.92rem;
-            margin-bottom: 22px;
-        }
-
-        .tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-subtle);
-            padding: 4px 10px;
+        .project-tag {
+            font-size: 11px;
+            background: rgba(0, 229, 255, 0.15);
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+            padding: 2px 8px;
             border-radius: 4px;
         }
 
-        /* Experience & Education */
-        .timeline-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 22px;
-        }
-
-        .timeline-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            padding: 24px;
-        }
-
-        .timeline-role {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .timeline-org {
-            color: var(--accent-primary);
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .timeline-date {
+        .project-desc {
             color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-bottom: 14px;
-            display: block;
+            font-size: 0.88em;
+            margin-bottom: 15px;
         }
 
-        .timeline-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: auto;
         }
 
-        /* Technical Capabilities */
-        .skills-container {
+        .tech-tag {
+            font-size: 11px;
+            color: var(--primary);
+            background: rgba(0, 255, 157, 0.08);
+            padding: 3px 8px;
+            border-radius: 3px;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+
+        /* Skills & Tools Grid */
+        .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
+            gap: 12px;
         }
 
-        .skill-group {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            padding: 22px;
-        }
-
-        .skill-group h3 {
-            font-size: 0.95rem;
-            color: var(--text-primary);
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .skill-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .skill-list li {
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .skill-list li::before {
-            content: "▹";
-            color: var(--accent-primary);
-        }
-
-        /* Certifications */
-        .cert-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 20px;
-            margin-bottom: 24px;
-        }
-
-        .cert-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            overflow: hidden;
+        .skill-item {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 255, 157, 0.25);
+            padding: 13px 15px;
+            border-radius: 5px;
+            font-size: 0.9em;
             cursor: pointer;
             transition: all 0.25s;
-        }
-
-        .cert-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-3px);
-        }
-
-        .cert-img-box {
-            height: 170px;
-            overflow: hidden;
-            background: #000;
-            position: relative;
-        }
-
-        .cert-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .cert-card:hover .cert-img-box img {
-            transform: scale(1.04);
-        }
-
-        .cert-body {
-            padding: 16px;
-        }
-
-        .cert-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .cert-meta {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-subtle);
-            padding: 40px 0;
-            margin-top: 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            color: var(--text-muted);
-            font-size: 0.88rem;
         }
 
-        .footer-links {
+        .skill-item:hover {
+            background: rgba(0, 255, 157, 0.12);
+            border-color: var(--primary);
+            transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
+        }
+
+        .skill-item span.label::before {
+            content: '[+] ';
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .skill-item span.info-icon {
+            color: var(--secondary);
+            font-size: 0.78em;
+            opacity: 0.75;
+        }
+
+        /* Certifications Grid */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .cert-card {
+            background: rgba(0, 0, 0, 0.72);
+            border: 1px solid rgba(0, 255, 157, 0.35);
+            border-radius: 6px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .footer-links a {
-            color: var(--text-secondary);
+        .cert-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 0 22px rgba(0, 255, 157, 0.3);
+        }
+
+        .cert-visual {
+            position: relative;
+            width: 100%;
+            height: 175px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 157, 0.25);
+            border-radius: 4px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, rgba(0, 40, 25, 0.9), rgba(0, 15, 25, 0.95));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .cert-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+            transition: transform 0.3s;
+        }
+
+        .cert-card:hover .cert-image {
+            transform: scale(1.06);
+        }
+
+        .cert-badge-icon {
+            font-size: 2.6em;
+            margin-bottom: 8px;
+        }
+
+        .cert-badge-org {
+            color: var(--secondary);
+            font-size: 0.82em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .cert-badge-status {
+            color: var(--primary);
+            font-size: 0.75em;
+            margin-top: 6px;
+            border: 1px solid var(--primary);
+            padding: 2px 8px;
+            border-radius: 12px;
+            background: rgba(0, 255, 157, 0.1);
+        }
+
+        .cert-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.25s;
+            z-index: 2;
+        }
+
+        .cert-card:hover .cert-overlay {
+            opacity: 1;
+        }
+
+        .cert-overlay span {
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 6px 14px;
+            font-size: 12px;
+            border-radius: 4px;
+            background: rgba(0, 20, 12, 0.9);
+            font-weight: 600;
+        }
+
+        .cert-order-tag {
+            font-size: 11px;
+            color: var(--warning);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .cert-name {
+            color: var(--text-main);
+            font-size: 0.98em;
+            font-weight: 600;
+        }
+
+        .cert-issuer {
+            color: var(--text-muted);
+            font-size: 0.82em;
+            margin-top: 4px;
+        }
+
+        /* Social Buttons */
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .social-btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 10px 22px;
+            border-radius: 4px;
             text-decoration: none;
-            transition: color 0.2s;
+            font-size: 0.92em;
+            transition: all 0.3s;
         }
 
-        .footer-links a:hover {
-            color: var(--accent-primary);
+        .social-btn:hover {
+            background: var(--primary);
+            color: #000;
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.6);
+            transform: translateY(-2px);
         }
 
-        /* Lightbox Modal */
+        .social-btn::before {
+            content: '$ ';
+        }
+
+        /* Universal Interactive Terminal Modal */
         .modal {
             display: none;
             position: fixed;
             z-index: 999;
             inset: 0;
-            background: rgba(9, 13, 22, 0.92);
-            backdrop-filter: blur(8px);
+            background: rgba(2, 6, 4, 0.88);
+            backdrop-filter: blur(6px);
             align-items: center;
             justify-content: center;
-            padding: 24px;
+            padding: 20px;
         }
 
         .modal.active {
             display: flex;
         }
 
-        .modal-content {
-            max-width: 90%;
-            max-height: 85vh;
+        .modal-box {
+            background: #07120d;
+            border: 2px solid var(--primary);
             border-radius: 8px;
-            border: 1px solid var(--border-subtle);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            max-width: 680px;
+            width: 100%;
+            max-height: 88vh;
+            overflow-y: auto;
+            box-shadow: 0 0 40px rgba(0, 255, 157, 0.35);
+            animation: modalPop 0.2s ease-out;
         }
 
-        .modal-close {
-            position: absolute;
-            top: 24px;
-            right: 32px;
-            color: var(--text-primary);
-            font-size: 32px;
+        @keyframes modalPop {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            background: rgba(0, 255, 157, 0.1);
+            border-bottom: 1px solid var(--border-glow);
+            padding: 12px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-cmd {
+            color: var(--warning);
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .modal-close-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 2px 10px;
+            border-radius: 4px;
             cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85em;
+        }
+
+        .modal-close-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .modal-body {
+            padding: 22px;
+        }
+
+        .modal-title {
+            color: var(--primary);
+            font-size: 1.35em;
+            margin-bottom: 6px;
+        }
+
+        .modal-subtitle {
+            color: var(--secondary);
+            font-size: 0.88em;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(0, 255, 157, 0.25);
+        }
+
+        .modal-img-preview {
+            width: 100%;
+            max-height: 360px;
+            object-fit: contain;
+            border: 1px solid var(--border-glow);
+            border-radius: 4px;
+            margin-bottom: 16px;
+            background: #000;
+            display: none;
+        }
+
+        .modal-text {
+            color: var(--text-main);
+            font-size: 0.92em;
+            margin-bottom: 16px;
+        }
+
+        .modal-highlights {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .modal-highlights li {
+            color: var(--text-muted);
+            font-size: 0.88em;
+            margin-bottom: 8px;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .modal-highlights li::before {
+            content: '▹';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        .modal-code {
+            background: #020504;
+            border-left: 3px solid var(--secondary);
+            padding: 12px;
+            font-size: 0.83em;
+            color: var(--primary);
+            border-radius: 0 4px 4px 0;
+            overflow-x: auto;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-glow);
+            margin-top: 40px;
+            font-size: 0.88em;
         }
 
         @media (max-width: 768px) {
-            .hero { padding: 48px 0; text-align: left; }
-            .hero h1 { font-size: 2.1rem; }
-            .nav-links { display: none; }
+            h1 { font-size: 1.75em; }
+            .terminal-header { justify-content: center; }
+            .profile-info { text-align: center; }
+            .social-links { flex-direction: column; }
+            .social-btn { text-align: center; }
         }
     </style>
 </head>
 <body>
+    <canvas id="matrix-bg"></canvas>
 
-    <nav class="navbar">
-        <div class="container nav-content">
-            <a href="#" class="brand">
-                <span class="brand-dot"></span>
-                <span>Md Atikur Rahman</span>
-            </a>
-            <div class="nav-links">
-                <a href="#projects">Projects</a>
-                <a href="#experience">Experience</a>
-                <a href="#capabilities">Capabilities</a>
-                <a href="#credentials">Credentials</a>
-                <a href="#contact">Contact</a>
+    <div class="container">
+        <!-- Sticky Terminal Header -->
+        <header class="terminal-header">
+            <div class="terminal-bar">
+                <span class="terminal-btn btn-red"></span>
+                <span class="terminal-btn btn-yellow"></span>
+                <span class="terminal-btn btn-green"></span>
+                <span class="terminal-title">atik@sec-ops:~ [AUTHENTICATED]</span>
             </div>
-        </div>
-    </nav>
+            <nav class="nav-links">
+                <a href="#about">/experience</a>
+                <a href="#projects">/projects</a>
+                <a href="#skills">/skills</a>
+                <a href="#tools">/arsenal</a>
+                <a href="#certs">/certs</a>
+                <a href="#connect">/connect</a>
+            </nav>
+        </header>
 
-    <main class="container">
-        <!-- Hero -->
-        <div class="hero">
-            <div class="hero-text">
-                <div class="status-pill">
-                    <span></span>
-                    Security Intern @ Khanovate • Open to Security Roles
+        <!-- Hero Section -->
+        <section class="profile-section">
+            <div class="profile-container">
+                <div class="profile-image-wrapper">
+                    <img src="https://i.imgur.com/0PWrIxR.jpeg" alt="MD Atikur Rahman" class="profile-image" onerror="this.style.display='none'; document.getElementById('placeholderDiv').style.display='flex';">
+                    <div id="placeholderDiv" style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 60px; color: var(--primary);">👤</div>
+                    <div class="image-scanner"></div>
                 </div>
-                <h1>Md Atikur Rahman</h1>
-                <p class="hero-role">Ethical Hacker & Security Tool Builder</p>
-                <p class="hero-desc">
-                    Focused on engineering practical offensive and defensive security tools, AI-powered threat detection systems, and resilient application architectures.
-                </p>
-                <div class="hero-actions">
-                    <a href="https://github.com/atik1234567890" target="_blank" rel="noopener" class="btn btn-primary">GitHub Profile ↗</a>
-                    <a href="https://www.linkedin.com/in/md-atikur-rahman-3416a1386" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn</a>
-                    <a href="mailto:arcybera91@gmail.com" class="btn btn-outline">arcybera91@gmail.com</a>
-                </div>
-            </div>
-            <div class="hero-avatar-wrapper">
-                <img src="https://i.imgur.com/0PWrIxR.jpeg" alt="Md Atikur Rahman" class="hero-avatar">
-            </div>
-        </div>
-
-        <!-- Flagship Projects -->
-        <section id="projects">
-            <div class="section-header">
-                <span class="section-label mono">01 // Engineering & Research</span>
-                <h2 class="section-title">Featured Security Systems</h2>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div>
-                        <div class="project-top">
-                            <span class="project-name">Phantom</span>
-                            <span class="project-badge mono">Flagship Framework</span>
-                        </div>
-                        <p class="project-desc">
-                            Dual-use security framework built for automated reconnaissance, vulnerability scanning, and proactive threat detection across network and web targets.
-                        </p>
-                    </div>
-                    <div class="tag-list mono">
-                        <span class="tag">Python</span>
-                        <span class="tag">Recon Automation</span>
-                        <span class="tag">Vulnerability Scanning</span>
-                        <span class="tag">Threat Detection</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div>
-                        <div class="project-top">
-                            <span class="project-name">BicharBD</span>
-                            <span class="project-badge mono">AI & Digital Integrity</span>
-                        </div>
-                        <p class="project-desc">
-                            Digital judicial archive featuring AI-based document forgery detection, end-to-end encryption, a live security operations dashboard, and a nationwide threat heatmap.
-                        </p>
-                    </div>
-                    <div class="tag-list mono">
-                        <span class="tag">TypeScript</span>
-                        <span class="tag">AI Misinfo Detection</span>
-                        <span class="tag">SOC Dashboard</span>
-                        <span class="tag">E2E Encryption</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div>
-                        <div class="project-top">
-                            <span class="project-name">SentinelX</span>
-                            <span class="project-badge mono">Endpoint & Network</span>
-                        </div>
-                        <p class="project-desc">
-                            Integrated endpoint and network threat detection platform with AI-powered alert triage and real-time packet inspection.
-                        </p>
-                    </div>
-                    <div class="tag-list mono">
-                        <span class="tag">FastAPI</span>
-                        <span class="tag">React / Tailwind</span>
-                        <span class="tag">Scapy</span>
-                        <span class="tag">Packet Analysis</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div>
-                        <div class="project-top">
-                            <span class="project-name">CyberMentor AI</span>
-                            <span class="project-badge mono">SecOps Platform</span>
-                        </div>
-                        <p class="project-desc">
-                            Hands-on security training platform with SOC Analyst & Penetration Tester role simulations and an automated 12+ tool Kali Linux recon pipeline.
-                        </p>
-                    </div>
-                    <div class="tag-list mono">
-                        <span class="tag">Kali Linux</span>
-                        <span class="tag">Bash / Python</span>
-                        <span class="tag">Role Simulation</span>
-                        <span class="tag">Pipeline Automation</span>
-                    </div>
+                <div class="profile-info">
+                    <span class="status-badge">● Security Intern @ Khanovate | Open to Security Roles</span>
+                    <h1 id="glitch-title">MD ATIKUR RAHMAN</h1>
+                    <p class="title-subtitle">ETHICAL HACKER | SECURITY TOOL BUILDER | RESEARCHER</p>
+                    <p class="hero-bio">
+                        Engineering practical offensive and defensive security tools, automated threat detection pipelines, and resilient application architectures.
+                    </p>
                 </div>
             </div>
         </section>
+
+        <!-- Interactive Instruction Banner -->
+        <div class="scanner">
+            <div class="scan-line">System modules loaded: <strong style="color: var(--primary);">Phantom, BicharBD, SentinelX, CyberMentor AI</strong></div>
+            <div class="scan-line"><span class="warning">💡 INTERACTIVE TERMINAL: Click on any Project, Skill, Tool, or Certificate below to inspect technical details!</span></div>
+        </div>
 
         <!-- Experience & Education -->
-        <section id="experience">
-            <div class="section-header">
-                <span class="section-label mono">02 // Background</span>
-                <h2 class="section-title">Experience & Education</h2>
+        <section id="about" class="section">
+            <h2 class="section-title">EXPERIENCE_&_EDUCATION.log</h2>
+            <div class="command-line">
+                <span class="prompt">cat /var/log/career_profile.txt</span>
+                <span class="click-hint">[Click any card to inspect]</span>
             </div>
-            <div class="timeline-grid">
-                <div class="timeline-card">
-                    <h3 class="timeline-role">Cybersecurity Intern</h3>
-                    <p class="timeline-org">Khanovate (Hacker Associate) — Malaysia</p>
-                    <span class="timeline-date mono">2026 — Present • Hybrid</span>
-                    <p class="timeline-desc">
-                        Developing AI-assisted endpoint and network threat detection systems (SentinelX), conducting vulnerability research, and building practical offensive/defensive security tools.
+            <div class="info-grid">
+                <div class="info-card clickable-card" onclick="inspectItem('intern')">
+                    <h3>🛡️ Cybersecurity Intern</h3>
+                    <span class="meta">Khanovate (Hacker Associate) • Malaysia (Hybrid)</span>
+                    <p style="font-size: 0.88em; color: var(--text-muted);">
+                        Building AI-powered endpoint & network threat detection (SentinelX) and conducting offensive/defensive security research.
                     </p>
+                    <span class="inspect-tag">🔍 Click to view role details</span>
                 </div>
-                <div class="timeline-card">
-                    <h3 class="timeline-role">B.Sc. (Hons) in Computer Science</h3>
-                    <p class="timeline-org">Lincoln University College — Malaysia</p>
-                    <span class="timeline-date mono">2023 — 2026 • Network Technology & Cybersecurity</span>
-                    <p class="timeline-desc">
-                        Specializing in network security implementation, application security architecture, cryptography, and real-world threat triage.
+                <div class="info-card clickable-card" onclick="inspectItem('edu')">
+                    <h3>🎓 Bachelor of Computer Science (Hons)</h3>
+                    <span class="meta">Lincoln University College • Malaysia (2023 – 2026)</span>
+                    <p style="font-size: 0.88em; color: var(--text-muted);">
+                        Major in <strong>Network Technology & Cybersecurity</strong>. Focused on network security implementation and AppSec architecture.
                     </p>
+                    <span class="inspect-tag">🔍 Click to view coursework & focus</span>
                 </div>
             </div>
         </section>
 
-        <!-- Capabilities -->
-        <section id="capabilities">
-            <div class="section-header">
-                <span class="section-label mono">03 // Technical Stack</span>
-                <h2 class="section-title">Core Capabilities & Arsenal</h2>
+        <!-- Flagship Projects -->
+        <section id="projects" class="section">
+            <h2 class="section-title">FLAGSHIP_PROJECTS.exe</h2>
+            <div class="command-line">
+                <span class="prompt">./list_deployed_tools.sh --featured</span>
+                <span class="click-hint">[Click any project for architecture & specs]</span>
             </div>
-            <div class="skills-container">
-                <div class="skill-group">
-                    <h3>Offensive & Pentesting</h3>
-                    <ul class="skill-list">
-                        <li>Web Application Pentesting</li>
-                        <li>Vulnerability Assessment</li>
-                        <li>OSINT & Recon Automation</li>
-                        <li>Burp Suite, OWASP ZAP, SQLmap</li>
-                        <li>Metasploit & Kali Linux</li>
-                    </ul>
+            <div class="projects-grid">
+                <div class="project-card clickable-card" onclick="inspectItem('phantom')">
+                    <div>
+                        <div class="project-header">
+                            <span class="project-title">🕵️‍♂️ Phantom</span>
+                            <span class="project-tag">1st Flagship</span>
+                        </div>
+                        <p class="project-desc">
+                            Advanced dual-use security framework designed for automated reconnaissance, vulnerability scanning, and proactive threat detection.
+                        </p>
+                    </div>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Recon Automation</span>
+                        <span class="tech-tag">Vuln Scanning</span>
+                        <span class="tech-tag">🔍 Inspect</span>
+                    </div>
                 </div>
-                <div class="skill-group">
-                    <h3>Defensive & SecOps</h3>
-                    <ul class="skill-list">
-                        <li>Network Traffic & Packet Analysis</li>
-                        <li>Endpoint Threat Detection</li>
-                        <li>SOC Triage & Incident Response</li>
-                        <li>Wireshark, Nmap & Scapy</li>
-                        <li>Application Security Architecture</li>
-                    </ul>
+
+                <div class="project-card clickable-card" onclick="inspectItem('bicharbd')">
+                    <div>
+                        <div class="project-header">
+                            <span class="project-title">⚖️ BicharBD</span>
+                            <span class="project-tag">AI & Integrity</span>
+                        </div>
+                        <p class="project-desc">
+                            Digital justice archive featuring AI-based fake-document detection, end-to-end encryption, live SOC dashboard, and crime heatmap.
+                        </p>
+                    </div>
+                    <div class="tech-tags">
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">AI Misinfo Detection</span>
+                        <span class="tech-tag">SOC Dashboard</span>
+                        <span class="tech-tag">🔍 Inspect</span>
+                    </div>
                 </div>
-                <div class="skill-group">
-                    <h3>Languages & Engineering</h3>
-                    <ul class="skill-list">
-                        <li>Python & FastAPI</li>
-                        <li>TypeScript & JavaScript</li>
-                        <li>Bash & PowerShell Scripting</li>
-                        <li>SQL & Database Security</li>
-                        <li>Docker, Linux & Git</li>
-                    </ul>
+
+                <div class="project-card clickable-card" onclick="inspectItem('sentinelx')">
+                    <div>
+                        <div class="project-header">
+                            <span class="project-title">📡 SentinelX</span>
+                            <span class="project-tag">Threat Triage</span>
+                        </div>
+                        <p class="project-desc">
+                            Integrated endpoint and network threat detection system with AI-powered alert triage and real-time packet analysis.
+                        </p>
+                    </div>
+                    <div class="tech-tags">
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">React / Tailwind</span>
+                        <span class="tech-tag">Scapy</span>
+                        <span class="tech-tag">🔍 Inspect</span>
+                    </div>
+                </div>
+
+                <div class="project-card clickable-card" onclick="inspectItem('cybermentor')">
+                    <div>
+                        <div class="project-header">
+                            <span class="project-title">🧠 CyberMentor AI</span>
+                            <span class="project-tag">SecOps Platform</span>
+                        </div>
+                        <p class="project-desc">
+                            Hands-on platform with SOC Analyst & Pentester role simulations and an automated 12+ tool Kali Linux recon pipeline.
+                        </p>
+                    </div>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Kali Pipeline</span>
+                        <span class="tech-tag">SOC Simulation</span>
+                        <span class="tech-tag">Bash / Python</span>
+                        <span class="tech-tag">🔍 Inspect</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Certifications -->
-        <section id="credentials">
-            <div class="section-header">
-                <span class="section-label mono">04 // Verification</span>
-                <h2 class="section-title">Licenses & Certifications</h2>
+        <!-- Skills Section (All Clickable) -->
+        <section id="skills" class="section">
+            <h2 class="section-title">SKILLS.db</h2>
+            <div class="command-line">
+                <span class="prompt">SELECT * FROM skills WHERE domain='SECURITY';</span>
+                <span class="click-hint">[Click any skill to view practical capabilities]</span>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item" onclick="inspectItem('skill_pentest')">
+                    <span class="label">Penetration Testing</span>
+                    <span class="info-icon">[info]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('skill_netsec')">
+                    <span class="label">Network Security</span>
+                    <span class="info-icon">[info]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('skill_eh')">
+                    <span class="label">Ethical Hacking</span>
+                    <span class="info-icon">[info]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('skill_va')">
+                    <span class="label">Vulnerability Assessment</span>
+                    <span class="info-icon">[info]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('skill_osint')">
+                    <span class="label">OSINT & Threat Intel</span>
+                    <span class="info-icon">[info]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('skill_appsec')">
+                    <span class="label">Web Application Security</span>
+                    <span class="info-icon">[info]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('skill_scripting')">
+                    <span class="label">Python, Bash & TypeScript</span>
+                    <span class="info-icon">[info]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('skill_linux')">
+                    <span class="label">Linux/Unix Hardening</span>
+                    <span class="info-icon">[info]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('skill_ir')">
+                    <span class="label">SOC Triage & Incident Response</span>
+                    <span class="info-icon">[info]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('skill_crypto')">
+                    <span class="label">Applied Cryptography</span>
+                    <span class="info-icon">[info]</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Arsenal (All Clickable) -->
+        <section id="tools" class="section">
+            <h2 class="section-title">TOOLS.arsenal</h2>
+            <div class="command-line">
+                <span class="prompt">ls -la /opt/security-arsenal/</span>
+                <span class="click-hint">[Click any tool to view usage workflow]</span>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item" onclick="inspectItem('tool_kali')">
+                    <span class="label">Kali Linux</span>
+                    <span class="info-icon">[cmd]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('tool_burp')">
+                    <span class="label">Burp Suite</span>
+                    <span class="info-icon">[cmd]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('tool_wireshark')">
+                    <span class="label">Wireshark & Scapy</span>
+                    <span class="info-icon">[cmd]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('tool_nmap')">
+                    <span class="label">Nmap</span>
+                    <span class="info-icon">[cmd]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('tool_metasploit')">
+                    <span class="label">Metasploit Framework</span>
+                    <span class="info-icon">[cmd]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('tool_sqlmap')">
+                    <span class="label">SQLmap & OWASP ZAP</span>
+                    <span class="info-icon">[cmd]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('tool_hashcat')">
+                    <span class="label">Hashcat, John & Hydra</span>
+                    <span class="info-icon">[cmd]</span>
+                </div>
+                <div class="skill-item" onclick="inspectItem('tool_fastapi')">
+                    <span class="label">FastAPI & Docker</span>
+                    <span class="info-icon">[cmd]</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications (Ordered strictly: Cisco x2 -> KC7 -> IEEE -> NextGen & Data Analysis) -->
+        <section id="certs" class="section">
+            <h2 class="section-title">CERTIFICATIONS.crt</h2>
+            <div class="command-line">
+                <span class="prompt">openssl x509 -in verified_credentials.crt -text</span>
+                <span class="click-hint">[Click any certificate to view details & credential]</span>
             </div>
             <div class="cert-grid">
-                <div class="cert-card" onclick="openModal('https://i.imgur.com/vnYYOGL.png')">
-                    <div class="cert-img-box">
-                        <img src="https://i.imgur.com/vnYYOGL.png" alt="Data Analysis Certificate">
+                <!-- 1. Cisco Ethical Hacker -->
+                <div class="cert-card" onclick="inspectItem('cert_cisco_eh')">
+                    <div>
+                        <div class="cert-visual">
+                            <div class="cert-badge-icon">🛡️</div>
+                            <div class="cert-badge-org">CISCO NETWORKING ACADEMY</div>
+                            <div class="cert-badge-status">✓ Verified • Issued Feb 2026</div>
+                            <div class="cert-overlay"><span>🔍 Click to Inspect Credential</span></div>
+                        </div>
+                        <span class="cert-order-tag">01 // OFFENSIVE SECURITY</span>
+                        <p class="cert-name">[+] Ethical Hacker</p>
                     </div>
-                    <div class="cert-body">
-                        <div class="cert-title">Data Analysis Certificate</div>
-                        <div class="cert-meta">Click to view credential</div>
-                    </div>
+                    <p class="cert-issuer">Cisco Networking Academy • Penetration Testing & Exploitation</p>
                 </div>
-                <div class="cert-card" onclick="openModal('https://i.imgur.com/5YNB41f.jpeg')">
-                    <div class="cert-img-box">
-                        <img src="https://i.imgur.com/5YNB41f.jpeg" alt="IEEE Certificate">
+
+                <!-- 2. Cisco Intro to Cybersecurity -->
+                <div class="cert-card" onclick="inspectItem('cert_cisco_intro')">
+                    <div>
+                        <div class="cert-visual">
+                            <div class="cert-badge-icon">🔐</div>
+                            <div class="cert-badge-org">CISCO NETWORKING ACADEMY</div>
+                            <div class="cert-badge-status">✓ Verified • Issued Jan 2026</div>
+                            <div class="cert-overlay"><span>🔍 Click to Inspect Credential</span></div>
+                        </div>
+                        <span class="cert-order-tag">02 // DEFENSIVE FOUNDATIONS</span>
+                        <p class="cert-name">[+] Introduction to Cybersecurity</p>
                     </div>
-                    <div class="cert-body">
-                        <div class="cert-title">IEEE Technical Certificate</div>
-                        <div class="cert-meta">Click to view credential</div>
-                    </div>
+                    <p class="cert-issuer">Cisco Networking Academy • Threat Detection & Cyber Defense</p>
                 </div>
-                <div class="cert-card" onclick="openModal('https://i.imgur.com/9kFrzUL.jpeg')">
-                    <div class="cert-img-box">
-                        <img src="https://i.imgur.com/9kFrzUL.jpeg" alt="NextGen Tech Certificate">
+
+                <!-- 3. KC7 Cyber Detective -->
+                <div class="cert-card" onclick="inspectItem('cert_kc7')">
+                    <div>
+                        <div class="cert-visual">
+                            <div class="cert-badge-icon">🕵️‍♂️</div>
+                            <div class="cert-badge-org">KC7: THE CYBER DETECTIVE GAME</div>
+                            <div class="cert-badge-status">✓ 3 Modules Completed • Oct 2026</div>
+                            <div class="cert-overlay"><span>🔍 Click to View KC7 Modules</span></div>
+                        </div>
+                        <span class="cert-order-tag">03 // THREAT INTELLIGENCE & KQL</span>
+                        <p class="cert-name">[+] KC7 Cyber Detective (Valdorian Times, Rap Beef, Titan Shield)</p>
                     </div>
-                    <div class="cert-body">
-                        <div class="cert-title">NextGen Tech Certificate</div>
-                        <div class="cert-meta">Click to view credential</div>
-                    </div>
+                    <p class="cert-issuer">Credential IDs: 96243, 95962, 95926</p>
                 </div>
-            </div>
-            <div class="tag-list mono">
-                <span class="tag">✓ Ethical Hacker — Cisco Networking Academy (2026)</span>
-                <span class="tag">✓ Introduction to Cybersecurity — Cisco (2026)</span>
-                <span class="tag">✓ KC7 Cyber Detective — Threat Intelligence (2026)</span>
+
+                <!-- 4. IEEE Certificate -->
+                <div class="cert-card" onclick="inspectItem('cert_ieee')">
+                    <div>
+                        <div class="cert-visual">
+                            <img src="https://i.imgur.com/5YNB41f.jpeg" alt="IEEE Certificate" class="cert-image">
+                            <div class="cert-overlay"><span>🔍 Click to Expand & Read</span></div>
+                        </div>
+                        <span class="cert-order-tag">04 // TECHNICAL EXCELLENCE</span>
+                        <p class="cert-name">[+] IEEE Certificate</p>
+                    </div>
+                    <p class="cert-issuer">IEEE Technical Credential</p>
+                </div>
+
+                <!-- 5. NextGen Tech Certificate -->
+                <div class="cert-card" onclick="inspectItem('cert_nextgen')">
+                    <div>
+                        <div class="cert-visual">
+                            <img src="https://i.imgur.com/9kFrzUL.jpeg" alt="NextGen Tech Certificate" class="cert-image">
+                            <div class="cert-overlay"><span>🔍 Click to Expand & Read</span></div>
+                        </div>
+                        <span class="cert-order-tag">05 // EMERGING TECH</span>
+                        <p class="cert-name">[+] Certificate NextGen Tech</p>
+                    </div>
+                    <p class="cert-issuer">NextGen Technology & Security</p>
+                </div>
+
+                <!-- 6. Data Analysis Certificate -->
+                <div class="cert-card" onclick="inspectItem('cert_data')">
+                    <div>
+                        <div class="cert-visual">
+                            <img src="https://i.imgur.com/vnYYOGL.png" alt="Data Analysis Certificate" class="cert-image">
+                            <div class="cert-overlay"><span>🔍 Click to Expand & Read</span></div>
+                        </div>
+                        <span class="cert-order-tag">06 // DATA & TELEMETRY</span>
+                        <p class="cert-name">[+] Data Analysis Certificate</p>
+                    </div>
+                    <p class="cert-issuer">Security Log & Data Analytics</p>
+                </div>
             </div>
         </section>
 
-        <!-- Footer / Contact -->
-        <footer id="contact">
-            <div>
-                © 2026 Md Atikur Rahman. Built with clean architecture.
+        <!-- Connect Section -->
+        <section id="connect" class="section">
+            <h2 class="section-title">CONNECT.sh</h2>
+            <div class="command-line">
+                <span class="prompt">./establish_connection.sh --target "MD_ATIKUR_RAHMAN"</span>
             </div>
-            <div class="footer-links">
-                <a href="https://github.com/atik1234567890" target="_blank" rel="noopener">GitHub</a>
-                <a href="https://www.linkedin.com/in/md-atikur-rahman-3416a1386" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="https://bsky.app/profile/atik2341" target="_blank" rel="noopener">Bluesky</a>
-                <a href="https://wa.me/+60179608351" target="_blank" rel="noopener">WhatsApp</a>
-                <a href="mailto:arcybera91@gmail.com">Email</a>
+            <div class="social-links">
+                <a href="https://github.com/atik1234567890" target="_blank" rel="noopener noreferrer" class="social-btn">GitHub</a>
+                <a href="https://www.linkedin.com/in/md-atikur-rahman-3416a1386" target="_blank" rel="noopener noreferrer" class="social-btn">LinkedIn</a>
+                <a href="mailto:arcybera91@gmail.com" class="social-btn">Email</a>
+                <a href="https://bsky.app/profile/atik2341" target="_blank" rel="noopener noreferrer" class="social-btn">Bluesky</a>
+                <a href="https://wa.me/+60179608351" target="_blank" rel="noopener noreferrer" class="social-btn">WhatsApp</a>
             </div>
-        </footer>
-    </main>
+        </section>
 
-    <!-- Modal for Certificates -->
-    <div id="certModal" class="modal" onclick="closeModal()">
-        <span class="modal-close">&times;</span>
-        <img id="modalImg" class="modal-content" src="" alt="Certificate Preview">
+        <footer class="footer">
+            <p style="color: var(--primary); margin-bottom: 6px;">root@atik-sec:~# echo "All systems secured and operational."</p>
+            <p>© 2026 MD Atikur Rahman | Ethical Hacker & Security Tool Builder</p>
+        </footer>
+    </div>
+
+    <!-- Interactive Inspector Modal -->
+    <div id="inspectorModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span id="modalCmd" class="modal-cmd">root@atik-sec:~# inspect --target</span>
+                <button class="modal-close-btn" onclick="closeModal()">[ESC / CLOSE ✕]</button>
+            </div>
+            <div class="modal-body">
+                <h3 id="modalTitle" class="modal-title">Title</h3>
+                <p id="modalSubtitle" class="modal-subtitle">Subtitle</p>
+                <img id="modalImage" class="modal-img-preview" src="" alt="Preview">
+                <p id="modalDesc" class="modal-text"></p>
+                <ul id="modalBullets" class="modal-highlights"></ul>
+                <div id="modalCode" class="modal-code"></div>
+            </div>
+        </div>
     </div>
 
     <script>
-        function openModal(src) {
-            document.getElementById('modalImg').src = src;
-            document.getElementById('certModal').classList.add('active');
+        // Database of Interactive Details for Every Item
+        const detailsDB = {
+            intern: {
+                cmd: "cat /experience/khanovate_internship.log",
+                title: "Cybersecurity Intern @ Khanovate",
+                subtitle: "Hacker Associate • Jul 2026 – Present • Malaysia (Hybrid)",
+                desc: "Working directly on practical security engineering, automated threat detection, and vulnerability research.",
+                bullets: [
+                    "Developing SentinelX — an AI-assisted endpoint and network threat detection platform.",
+                    "Performing real-time packet inspection, network traffic analysis, and anomaly triage.",
+                    "Collaborating on offensive/defensive tooling and security research initiatives."
+                ],
+                code: "$ status: ACTIVE_INTERNSHIP | Focus: Threat Detection, Network Security & Tooling"
+            },
+            edu: {
+                cmd: "cat /education/lincoln_university_bcs.txt",
+                title: "Bachelor of Computer Science (Hons)",
+                subtitle: "Lincoln University College, Malaysia • Nov 2023 – Nov 2026",
+                desc: "Final-year undergraduate specializing in Network Technology and Cybersecurity, prioritizing practical tool creation alongside core architecture.",
+                bullets: [
+                    "Core Focus: Network Security Implementation, Application Security Architecture, Cyber Risk.",
+                    "Built multiple real-world security platforms (Phantom, BicharBD, CyberMentor AI) during degree.",
+                    "Active member of cybersecurity training and CTF/threat-hunting communities."
+                ],
+                code: "$ degree_track: BCS (Hons) in Network Technology & Cybersecurity"
+            },
+            phantom: {
+                cmd: "./phantom --info --architecture",
+                title: "🕵️‍♂️ Phantom — Flagship Security Framework",
+                subtitle: "Dual-Use Offensive & Defensive Security Tooling",
+                desc: "My primary flagship project built to streamline reconnaissance, vulnerability identification, and proactive defense workflows.",
+                bullets: [
+                    "Automates multi-stage reconnaissance and surface mapping against authorized targets.",
+                    "Integrates vulnerability scanning logic to detect misconfigurations and exposed services rapidly.",
+                    "Designed with modular architecture so both red teams and blue teams can audit assets."
+                ],
+                code: "$ python3 phantom.py --target example.com --mode full-audit"
+            },
+            bicharbd: {
+                cmd: "./bicharbd --status --modules",
+                title: "⚖️ BicharBD — Digital Justice & Integrity Archive",
+                subtitle: "AI Misinformation Detection & Live Security Operations Dashboard",
+                desc: "A comprehensive digital justice archive documenting judicial records and human rights events in Bangladesh from 1971 to the present.",
+                bullets: [
+                    "AI-Powered Verification: Detects forged/manipulated documents and misinformation automatically.",
+                    "Security Architecture: Features end-to-end encryption and tamper-evident record timestamping.",
+                    "Live Telemetry: Includes a real-time SOC-style monitoring dashboard and nationwide crime heatmap."
+                ],
+                code: "Stack: TypeScript, React, FastAPI/Node, AI Document Verification, E2E Encryption"
+            },
+            sentinelx: {
+                cmd: "systemctl status sentinelx-agent.service",
+                title: "📡 SentinelX — AI-Powered Threat Detection",
+                subtitle: "Endpoint & Network Threat Triage Platform",
+                desc: "An integrated threat detection platform developed to bridge the gap between raw packet capture and intelligent alert triage.",
+                bullets: [
+                    "Captures and inspects live network packets using Python and Scapy.",
+                    "Uses FastAPI backend and AI-driven triage logic to filter noise and highlight high-severity anomalies.",
+                    "Provides a responsive React + Tailwind CSS dashboard for real-time analyst visibility."
+                ],
+                code: "Stack: Python, FastAPI, Scapy, React, Tailwind CSS | Role: Core Developer"
+            },
+            cybermentor: {
+                cmd: "./cybermentor-ai --launch-pipeline",
+                title: "🧠 CyberMentor AI — Hands-On SecOps Platform",
+                subtitle: "Role Simulations & Automated Kali Recon Pipeline",
+                desc: "An interactive learning and operations platform engineered to take beginners to job-ready cybersecurity practitioners.",
+                bullets: [
+                    "Simulates real-world SOC Analyst and Penetration Tester operational scenarios.",
+                    "Automates a 12+ tool Kali Linux reconnaissance pipeline with live AI-streamed terminal output.",
+                    "Focuses on practical command execution, log analysis, and vulnerability remediation."
+                ],
+                code: "$ ./recon_pipeline.sh --tools 12 --stream-ai-analysis"
+            },
+            skill_pentest: {
+                cmd: "man penetration-testing",
+                title: "Penetration Testing",
+                subtitle: "Authorized Offensive Security & Exploitation",
+                desc: "Executing structured penetration tests across web applications and network infrastructures to uncover exploitable weaknesses before adversaries do.",
+                bullets: [
+                    "Methodology aligned with OWASP Top 10 and PTES standards.",
+                    "Covers reconnaissance, enumeration, exploitation, privilege escalation, and remediation reporting.",
+                    "Hands-on experience via Cisco Ethical Hacker lab environments and custom tool building."
+                ],
+                code: "$ workflow: Recon -> Enumeration -> Exploitation -> Post-Exploitation -> Reporting"
+            },
+            skill_netsec: {
+                cmd: "man network-security",
+                title: "Network Security & Packet Analysis",
+                subtitle: "Traffic Inspection, Protocol Hardening & Intrusion Detection",
+                desc: "Deep understanding of TCP/IP stack, network protocols, firewall rules, and packet-level anomaly detection.",
+                bullets: [
+                    "Building custom packet sniffers and traffic analyzers using Scapy in SentinelX.",
+                    "Identifying port scans, ARP spoofing, C2 beacons, and abnormal traffic flows.",
+                    "Securing network perimeters and segmenting internal architectures."
+                ],
+                code: "$ tcpdump -i eth0 'tcp[tcpflags] & (tcp-syn|tcp-ack) != 0' -nn"
+            },
+            skill_eh: {
+                cmd: "man ethical-hacking",
+                title: "Ethical Hacking",
+                subtitle: "Offensive Mindset Applied to Defensive Engineering",
+                desc: "Breaking systems lawfully to understand attacker tradecraft (TTPs) and engineer stronger defensive controls.",
+                bullets: [
+                    "Certified in Ethical Hacking via Cisco Networking Academy.",
+                    "Combining manual testing techniques with custom automation scripts (Phantom).",
+                    "Focused on dual-use security value rather than surface-level theoretical checks."
+                ],
+                code: "$ mindset: 'To defend a system effectively, you must understand how it breaks.'"
+            },
+            skill_va: {
+                cmd: "man vulnerability-assessment",
+                title: "Vulnerability Assessment",
+                subtitle: "Asset Discovery, CVE Mapping & Risk Prioritization",
+                desc: "Systematic identification, classification, and prioritization of security vulnerabilities across endpoints, servers, and web assets.",
+                bullets: [
+                    "Automated scanning combined with manual verification to eliminate false positives.",
+                    "Mapping discovered weaknesses to CVEs, CVSS scores, and actionable patch plans.",
+                    "Continuous exposure management across development and production deployments."
+                ],
+                code: "$ nmap -sV --script vuln target_host"
+            },
+            skill_osint: {
+                cmd: "man osint-threat-intel",
+                title: "OSINT & Threat Intelligence",
+                subtitle: "Open-Source Reconnaissance & Adversary Tracking",
+                desc: "Gathering and correlating publicly available intelligence to map external attack surfaces and track threat actor infrastructure.",
+                bullets: [
+                    "Subdomain enumeration, credential leak checks, WHOIS/DNS pivoting, and metadata extraction.",
+                    "Investigating intrusion campaigns using KQL and threat intelligence frameworks (KC7).",
+                    "Automating OSINT collection pipelines for rapid pre-engagement recon."
+                ],
+                code: "$ recon-ng / theHarvester / custom Python OSINT scrapers"
+            },
+            skill_appsec: {
+                cmd: "man web-app-security",
+                title: "Web Application Security (AppSec)",
+                subtitle: "Securing Modern Web APIs & Full-Stack Architectures",
+                desc: "Identifying and mitigating critical web vulnerabilities while designing secure-by-default application backends.",
+                bullets: [
+                    "Testing for SQL Injection (SQLi), XSS, CSRF, SSRF, IDOR, and broken authentication.",
+                    "Implementing secure JWT authentication, rate limiting, input validation, and CORS policies.",
+                    "Applied directly in BicharBD and SentinelX web architectures."
+                ],
+                code: "Focus: OWASP Top 10 Mitigation & Secure API Engineering (FastAPI / TypeScript)"
+            },
+            skill_scripting: {
+                cmd: "python3 --version && bash --version && tsc --version",
+                title: "Python, Bash & TypeScript for Security",
+                subtitle: "Security Automation, Tooling & Full-Stack SecOps",
+                desc: "Writing clean, high-performance code to automate repetitive security tasks, parse logs, and build full-featured security platforms.",
+                bullets: [
+                    "Python: Custom exploit scripts, Scapy packet engines, FastAPI security backends.",
+                    "Bash / PowerShell: Linux recon pipelines (CyberMentor AI), system auditing, task automation.",
+                    "TypeScript / React: Interactive SOC dashboards, threat heatmaps, and secure web interfaces."
+                ],
+                code: "Languages: Python (25%+), TypeScript (56%+), Bash, PowerShell, JavaScript, SQL"
+            },
+            skill_linux: {
+                cmd: "uname -a && cat /etc/os-release",
+                title: "Linux / Unix Systems & Hardening",
+                subtitle: "System Administration, Permissions & Kernel/Service Security",
+                desc: "Operating comfortably inside Kali Linux, Ubuntu, and Debian environments for both offensive operations and server hardening.",
+                bullets: [
+                    "Managing SSH security, firewall rules (UFW/iptables), file permissions, and service isolation.",
+                    "Analyzing `/var/log/auth.log`, systemd journals, and process trees for suspicious activity.",
+                    "Building multi-tool Linux automation pipelines."
+                ],
+                code: "$ chmod 600 ~/.ssh/id_ed25519 && sudo ufw enable"
+            },
+            skill_ir: {
+                cmd: "man soc-incident-response",
+                title: "SOC Triage & Incident Response",
+                subtitle: "Alert Investigation, Log Correlation & Threat Hunting",
+                desc: "Analyzing security telemetry to detect, contain, and investigate cyber intrusions across endpoints and networks.",
+                bullets: [
+                    "Investigating phishing, malware execution, lateral movement, and data exfiltration scenarios.",
+                    "Experienced in KQL-style cyber detective investigations (KC7 Valdorian Times, Rap Beef, Titan Shield).",
+                    "Designing AI-assisted alert triage workflows in SentinelX to reduce analyst fatigue."
+                ],
+                code: "$ triage_flow: Detect -> Scope -> Contain -> Eradicate -> Post-Incident Review"
+            },
+            skill_crypto: {
+                cmd: "openssl version -a",
+                title: "Applied Cryptography",
+                subtitle: "Encryption, Hashing & Document Integrity",
+                desc: "Implementing cryptographic primitives to protect data in transit and at rest, and to verify digital authenticity.",
+                bullets: [
+                    "End-to-end encryption and cryptographic hashing (SHA-256, bcrypt/Argon2) in BicharBD.",
+                    "TLS/SSL certificate inspection, public-key infrastructure (PKI), and digital signatures.",
+                    "Password hash auditing and strength verification using Hashcat and John the Ripper."
+                ],
+                code: "$ sha256sum judicial_record.pdf && openssl dgst -sha256 -verify pubkey.pem"
+            },
+            tool_kali: {
+                cmd: "cat /etc/kali-release",
+                title: "Kali Linux",
+                subtitle: "Primary Offensive Security & Recon OS",
+                desc: "Used as my daily driver environment for penetration testing, tool development, and automated reconnaissance pipelines.",
+                bullets: [
+                    "Integrated 12+ Kali tools into an automated recon pipeline for CyberMentor AI.",
+                    "Customizing scripts, wordlists, and containerized security labs."
+                ],
+                code: "$ kali-tweaks && sudo apt update && sudo apt full-upgrade -y"
+            },
+            tool_burp: {
+                cmd: "burpsuite --project-file=webapp_audit.burp",
+                title: "Burp Suite",
+                subtitle: "Web Application Security Testing & HTTP Proxy",
+                desc: "Core tool for intercepting, inspecting, and modifying HTTP/HTTPS requests during web application and API security assessments.",
+                bullets: [
+                    "Using Repeater, Intruder, and Decoder to test authentication bypasses, IDOR, and injection flaws.",
+                    "Analyzing session tokens, API payloads, and security headers."
+                ],
+                code: "Proxy Listener: 127.0.0.1:8080 | Modules: Proxy, Repeater, Intruder, Sequencer"
+            },
+            tool_wireshark: {
+                cmd: "wireshark -k -i eth0",
+                title: "Wireshark & Scapy",
+                subtitle: "Deep Packet Inspection & Programmable Network Analysis",
+                desc: "Analyzing PCAP captures in Wireshark and writing custom Python packet manipulation/detection engines with Scapy.",
+                bullets: [
+                    "Core engine behind SentinelX's real-time network packet analysis module.",
+                    "Filtering anomalous DNS queries, TCP handshakes, and cleartext credential leaks."
+                ],
+                code: "from scapy.all import sniff, IP, TCP\nsniff(filter='tcp', prn=analyze_packet, store=0)"
+            },
+            tool_nmap: {
+                cmd: "nmap -sC -sV -O -T4 -oA scan_results target",
+                title: "Nmap (Network Mapper)",
+                subtitle: "Network Discovery, Port Scanning & NSE Scripting",
+                desc: "Essential reconnaissance tool for mapping live hosts, open ports, running services, OS fingerprints, and vulnerability scripts.",
+                bullets: [
+                    "Automated Nmap parsing integrated into Phantom and CyberMentor AI recon pipelines.",
+                    "Using Nmap Scripting Engine (NSE) for targeted service enumeration."
+                ],
+                code: "$ nmap -p- --min-rate 1000 -sV -sC target_ip"
+            },
+            tool_metasploit: {
+                cmd: "msfconsole -q",
+                title: "Metasploit Framework",
+                subtitle: "Exploit Validation, Payloads & Post-Exploitation",
+                desc: "Utilized in controlled lab and authorized testing environments to validate vulnerabilities and test endpoint detection resilience.",
+                bullets: [
+                    "Configuring exploit modules, auxiliary scanners, and Meterpreter sessions.",
+                    "Testing whether defensive tools (like SentinelX) accurately detect post-exploitation traffic."
+                ],
+                code: "msf6 > use exploit/multi/handler\nmsf6 > set PAYLOAD linux/x64/meterpreter/reverse_tcp"
+            },
+            tool_sqlmap: {
+                cmd: "sqlmap -u 'https://target/item?id=1' --batch --dbs",
+                title: "SQLmap & OWASP ZAP",
+                subtitle: "Automated Database Injection & Dynamic AppSec Scanning",
+                desc: "Validating SQL injection vulnerabilities and performing Dynamic Application Security Testing (DAST) against web targets.",
+                bullets: [
+                    "Auditing database queries to ensure parameterized statements prevent injection.",
+                    "Running automated spidering and active scans with OWASP ZAP."
+                ],
+                code: "$ zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://target"
+            },
+            tool_hashcat: {
+                cmd: "hashcat -m 0 -a 0 hashes.txt rockyou.txt",
+                title: "Hashcat, John the Ripper & Hydra",
+                subtitle: "Password Auditing, Hash Cracking & Auth Resilience",
+                desc: "Evaluating credential strength, auditing password hashes, and testing authentication rate-limiting controls.",
+                bullets: [
+                    "Cracking weak hashes using dictionary and rule-based attacks in lab environments.",
+                    "Testing SSH, FTP, and web login forms against brute-force attacks to enforce lockout policies."
+                ],
+                code: "$ john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt"
+            },
+            tool_fastapi: {
+                cmd: "uvicorn main:app --host 0.0.0.0 --port 8000",
+                title: "FastAPI & Docker",
+                subtitle: "High-Performance Security Tool Backends & Containerization",
+                desc: "My go-to engineering stack for turning standalone security scripts into scalable, production-ready web platforms and APIs.",
+                bullets: [
+                    "Powers the backend of SentinelX for asynchronous real-time alert processing.",
+                    "Containerizing security tools with Docker for reproducible deployment."
+                ],
+                code: "$ docker build -t sentinelx-engine . && docker run -p 8000:8000 sentinelx-engine"
+            },
+            cert_cisco_eh: {
+                cmd: "verify-cert --issuer 'Cisco Networking Academy' --name 'Ethical Hacker'",
+                title: "Ethical Hacker — Cisco Networking Academy",
+                subtitle: "Issued Feb 2026 • Verified Credential",
+                desc: "Comprehensive offensive security certification covering the mindset, methodology, and hands-on tools of professional ethical hacking.",
+                bullets: [
+                    "Key Skills: Ethical Hacking, Penetration Testing, Vulnerability Scanning, Reconnaissance.",
+                    "Exploitation of web applications, networks, and system vulnerabilities in lab environments.",
+                    "Reporting and remediation strategies for discovered security flaws."
+                ],
+                code: "Status: VERIFIED | Organization: Cisco Networking Academy (Feb 2026)"
+            },
+            cert_cisco_intro: {
+                cmd: "verify-cert --issuer 'Cisco Networking Academy' --name 'Introduction to Cybersecurity'",
+                title: "Introduction to Cybersecurity — Cisco",
+                subtitle: "Issued Jan 2026 • Verified Credential",
+                desc: "Foundational certification establishing core principles of cyber defense, threat landscapes, and organizational security posture.",
+                bullets: [
+                    "Key Skills: Cybersecurity, Threat Detection, Network Defense, Security Controls.",
+                    "Analyzing types of malware, social engineering, and network-based attacks.",
+                    "Implementing CIA triad principles (Confidentiality, Integrity, Availability)."
+                ],
+                code: "Status: VERIFIED | Organization: Cisco Networking Academy (Jan 2026)"
+            },
+            cert_kc7: {
+                cmd: "verify-cert --issuer 'KC7 Cyber Detective' --ids 96243,95962,95926",
+                title: "KC7: The Cyber Detective Game (3 Credentials)",
+                subtitle: "Issued Oct 2026 • Threat Intelligence & KQL Intrusion Analysis",
+                desc: "Completed multiple hands-on cyber threat intelligence and SOC investigation challenges using real-world telemetry and Kusto Query Language (KQL).",
+                bullets: [
+                    "Valdorian Times (Credential ID: 96243) — Investigated phishing, C2 traffic, and APT activity.",
+                    "Rap Beef (Credential ID: 95962) — Analyzed endpoint logs, DNS telemetry, and attacker pivoting.",
+                    "Titan Shield (Credential ID: 95926) — Conducted deep-dive threat hunting and attribution."
+                ],
+                code: "Credentials: Valdorian Times (#96243) | Rap Beef (#95962) | Titan Shield (#95926)"
+            },
+            cert_ieee: {
+                cmd: "open_credential --file ieee_certificate.jpg",
+                title: "IEEE Technical Certificate",
+                subtitle: "IEEE Verified Recognition",
+                image: "https://i.imgur.com/5YNB41f.jpeg",
+                desc: "Official certificate awarded by IEEE recognizing technical participation and engineering excellence.",
+                bullets: [
+                    "Demonstrates commitment to international engineering standards and technical community engagement."
+                ],
+                code: "Issuer: IEEE | File: 5YNB41f.jpeg [Loaded Successfully]"
+            },
+            cert_nextgen: {
+                cmd: "open_credential --file nextgen_tech_cert.jpg",
+                title: "Certificate NextGen Tech",
+                subtitle: "Emerging Technology & Security Credential",
+                image: "https://i.imgur.com/9kFrzUL.jpeg",
+                desc: "Credential recognizing proficiency in modern next-generation computing and security technologies.",
+                bullets: [
+                    "Focused on practical technology innovation and modern software/security paradigms."
+                ],
+                code: "Issuer: NextGen Tech | File: 9kFrzUL.jpeg [Loaded Successfully]"
+            },
+            cert_data: {
+                cmd: "open_credential --file data_analysis_cert.png",
+                title: "Data Analysis Certificate",
+                subtitle: "Analytics & Telemetry Processing",
+                image: "https://i.imgur.com/vnYYOGL.png",
+                desc: "Certification in data analysis, supporting my work in security log parsing, anomaly detection, and crime/threat heatmaps.",
+                bullets: [
+                    "Applied directly when building data visualization dashboards for BicharBD and alert triage in SentinelX."
+                ],
+                code: "Skill Integration: Data Analytics + Security Telemetry | File: vnYYOGL.png"
+            }
+        };
+
+        function inspectItem(key) {
+            const item = detailsDB[key];
+            if (!item) return;
+
+            document.getElementById('modalCmd').textContent = "root@atik-sec:~# " + item.cmd;
+            document.getElementById('modalTitle').textContent = item.title;
+            document.getElementById('modalSubtitle').textContent = item.subtitle;
+            document.getElementById('modalDesc').textContent = item.desc;
+
+            const imgEl = document.getElementById('modalImage');
+            if (item.image) {
+                imgEl.src = item.image;
+                imgEl.style.display = 'block';
+            } else {
+                imgEl.style.display = 'none';
+                imgEl.src = '';
+            }
+
+            const ul = document.getElementById('modalBullets');
+            ul.innerHTML = '';
+            item.bullets.forEach(b => {
+                const li = document.createElement('li');
+                li.textContent = b;
+                ul.appendChild(li);
+            });
+
+            document.getElementById('modalCode').textContent = item.code;
+            document.getElementById('inspectorModal').classList.add('active');
         }
-        function closeModal() {
-            document.getElementById('certModal').classList.remove('active');
+
+        function closeModal(e) {
+            document.getElementById('inspectorModal').classList.remove('active');
         }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホ';
+        const charArray = chars.split('');
+        const fontSize = 14;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = Array(columns).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(5, 8, 7, 0.06)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff9d';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 40);
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            columns = Math.floor(canvas.width / fontSize);
+            drops = Array(columns).fill(1);
+        });
+
+        // Subtle Title Glitch
+        const title = document.getElementById('glitch-title');
+        setInterval(() => {
+            if (Math.random() > 0.94) {
+                title.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 2 - 1}px)`;
+                setTimeout(() => { title.style.transform = 'translate(0, 0)'; }, 80);
+            }
+        }, 250);
     </script>
 </body>
 </html>
