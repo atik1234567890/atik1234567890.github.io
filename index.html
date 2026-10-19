@@ -389,43 +389,73 @@
             border: 1px solid rgba(0, 255, 157, 0.2);
         }
 
-        /* Skills & Tools Grid */
+        /* Skills & Tools Grid (Upgraded with Icons & Logos) */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 14px;
         }
 
         .skill-item {
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.65);
             border: 1px solid rgba(0, 255, 157, 0.25);
-            padding: 13px 15px;
-            border-radius: 5px;
+            padding: 12px 15px;
+            border-radius: 6px;
             font-size: 0.9em;
             cursor: pointer;
-            transition: all 0.25s;
+            transition: all 0.25s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 12px;
         }
 
         .skill-item:hover {
             background: rgba(0, 255, 157, 0.12);
             border-color: var(--primary);
-            transform: translateX(5px);
-            box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 18px rgba(0, 255, 157, 0.22);
         }
 
-        .skill-item span.label::before {
-            content: '[+] ';
-            color: var(--primary);
-            font-weight: bold;
+        .item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-box {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background: rgba(0, 255, 157, 0.08);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2em;
+            box-shadow: inset 0 0 8px rgba(0, 255, 157, 0.15);
+        }
+
+        .icon-box img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        .skill-item span.label {
+            color: var(--text-main);
+            font-weight: 500;
         }
 
         .skill-item span.info-icon {
             color: var(--secondary);
-            font-size: 0.78em;
-            opacity: 0.75;
+            font-size: 0.75em;
+            opacity: 0.8;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(0, 229, 255, 0.06);
         }
 
         /* Certifications Grid */
@@ -456,7 +486,7 @@
         .cert-visual {
             position: relative;
             width: 100%;
-            height: 180px;
+            height: 185px;
             overflow: hidden;
             border: 1px solid rgba(0, 255, 157, 0.25);
             border-radius: 4px;
@@ -674,7 +704,7 @@
 
         .modal-img-preview {
             width: 100%;
-            max-height: 380px;
+            max-height: 400px;
             object-fit: contain;
             border: 1px solid var(--border-glow);
             border-radius: 4px;
@@ -782,8 +812,8 @@
         <!-- Hero Section -->
         <section class="profile-section">
             <div class="profile-container">
-                <div class="profile-image-wrapper" onclick="window.open('https://imgur.com/a/V20N7am', '_blank')" title="Click to view full profile photo">
-                    <img id="heroProfileImg" src="https://i.imgur.com/0PWrIxR.jpeg" alt="MD Atikur Rahman" class="profile-image">
+                <div class="profile-image-wrapper" onclick="openProfilePreview()" title="Click to view full profile photo">
+                    <img id="heroProfileImg" src="https://i.imgur.com/jToT5c0.png" alt="MD Atikur Rahman" class="profile-image" onerror="this.src='https://i.imgur.com/0PWrIxR.jpeg'">
                     <div class="image-scanner"></div>
                 </div>
                 <div class="profile-info">
@@ -912,7 +942,7 @@
             </div>
         </section>
 
-        <!-- Skills Section (All Clickable) -->
+        <!-- Skills Section (With Visual Icons Instead of +) -->
         <section id="skills" class="section">
             <h2 class="section-title">SKILLS.db</h2>
             <div class="command-line">
@@ -921,49 +951,83 @@
             </div>
             <div class="skills-grid">
                 <div class="skill-item" onclick="inspectItem('skill_pentest')">
-                    <span class="label">Penetration Testing</span>
-                    <span class="info-icon">[info]</span>
+                    <div class="item-left">
+                        <div class="icon-box">🎯</div>
+                        <span class="label">Penetration Testing</span>
+                    </div>
+                    <span class="info-icon">inspect</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('skill_netsec')">
-                    <span class="label">Network Security</span>
-                    <span class="info-icon">[info]</span>
+                    <div class="item-left">
+                        <div class="icon-box">🌐</div>
+                        <span class="label">Network Security</span>
+                    </div>
+                    <span class="info-icon">inspect</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('skill_eh')">
-                    <span class="label">Ethical Hacking</span>
-                    <span class="info-icon">[info]</span>
+                    <div class="item-left">
+                        <div class="icon-box">🕵️‍♂️</div>
+                        <span class="label">Ethical Hacking</span>
+                    </div>
+                    <span class="info-icon">inspect</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('skill_va')">
-                    <span class="label">Vulnerability Assessment</span>
-                    <span class="info-icon">[info]</span>
+                    <div class="item-left">
+                        <div class="icon-box">🛡️</div>
+                        <span class="label">Vulnerability Assessment</span>
+                    </div>
+                    <span class="info-icon">inspect</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('skill_osint')">
-                    <span class="label">OSINT & Threat Intel</span>
-                    <span class="info-icon">[info]</span>
+                    <div class="item-left">
+                        <div class="icon-box">🔍</div>
+                        <span class="label">OSINT & Threat Intel</span>
+                    </div>
+                    <span class="info-icon">inspect</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('skill_appsec')">
-                    <span class="label">Web Application Security</span>
-                    <span class="info-icon">[info]</span>
+                    <div class="item-left">
+                        <div class="icon-box">🔒</div>
+                        <span class="label">Web App Security</span>
+                    </div>
+                    <span class="info-icon">inspect</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('skill_scripting')">
-                    <span class="label">Python, Bash & TypeScript</span>
-                    <span class="info-icon">[info]</span>
+                    <div class="item-left">
+                        <div class="icon-box">
+                            <img src="https://cdn.simpleicons.org/python/00ff9d" alt="Python">
+                        </div>
+                        <span class="label">Python, Bash & TS</span>
+                    </div>
+                    <span class="info-icon">inspect</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('skill_linux')">
-                    <span class="label">Linux/Unix Hardening</span>
-                    <span class="info-icon">[info]</span>
+                    <div class="item-left">
+                        <div class="icon-box">
+                            <img src="https://cdn.simpleicons.org/linux/00ff9d" alt="Linux">
+                        </div>
+                        <span class="label">Linux/Unix Hardening</span>
+                    </div>
+                    <span class="info-icon">inspect</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('skill_ir')">
-                    <span class="label">SOC Triage & Incident Response</span>
-                    <span class="info-icon">[info]</span>
+                    <div class="item-left">
+                        <div class="icon-box">🚨</div>
+                        <span class="label">SOC & Incident Response</span>
+                    </div>
+                    <span class="info-icon">inspect</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('skill_crypto')">
-                    <span class="label">Applied Cryptography</span>
-                    <span class="info-icon">[info]</span>
+                    <div class="item-left">
+                        <div class="icon-box">🔑</div>
+                        <span class="label">Applied Cryptography</span>
+                    </div>
+                    <span class="info-icon">inspect</span>
                 </div>
             </div>
         </section>
 
-        <!-- Tools Arsenal (All Clickable) -->
+        <!-- Tools Arsenal (With Official Tool Logos Instead of +) -->
         <section id="tools" class="section">
             <h2 class="section-title">TOOLS.arsenal</h2>
             <div class="command-line">
@@ -972,36 +1036,72 @@
             </div>
             <div class="skills-grid">
                 <div class="skill-item" onclick="inspectItem('tool_kali')">
-                    <span class="label">Kali Linux</span>
-                    <span class="info-icon">[cmd]</span>
+                    <div class="item-left">
+                        <div class="icon-box">
+                            <img src="https://cdn.simpleicons.org/kalilinux/00e5ff" alt="Kali Linux">
+                        </div>
+                        <span class="label">Kali Linux</span>
+                    </div>
+                    <span class="info-icon">cmd</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('tool_burp')">
-                    <span class="label">Burp Suite</span>
-                    <span class="info-icon">[cmd]</span>
+                    <div class="item-left">
+                        <div class="icon-box">
+                            <img src="https://cdn.simpleicons.org/burpsuite/ff6633" alt="Burp Suite">
+                        </div>
+                        <span class="label">Burp Suite</span>
+                    </div>
+                    <span class="info-icon">cmd</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('tool_wireshark')">
-                    <span class="label">Wireshark & Scapy</span>
-                    <span class="info-icon">[cmd]</span>
+                    <div class="item-left">
+                        <div class="icon-box">
+                            <img src="https://cdn.simpleicons.org/wireshark/00e5ff" alt="Wireshark">
+                        </div>
+                        <span class="label">Wireshark & Scapy</span>
+                    </div>
+                    <span class="info-icon">cmd</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('tool_nmap')">
-                    <span class="label">Nmap</span>
-                    <span class="info-icon">[cmd]</span>
+                    <div class="item-left">
+                        <div class="icon-box">📡</div>
+                        <span class="label">Nmap</span>
+                    </div>
+                    <span class="info-icon">cmd</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('tool_metasploit')">
-                    <span class="label">Metasploit Framework</span>
-                    <span class="info-icon">[cmd]</span>
+                    <div class="item-left">
+                        <div class="icon-box">
+                            <img src="https://cdn.simpleicons.org/metasploit/00ff9d" alt="Metasploit">
+                        </div>
+                        <span class="label">Metasploit Framework</span>
+                    </div>
+                    <span class="info-icon">cmd</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('tool_sqlmap')">
-                    <span class="label">SQLmap & OWASP ZAP</span>
-                    <span class="info-icon">[cmd]</span>
+                    <div class="item-left">
+                        <div class="icon-box">
+                            <img src="https://cdn.simpleicons.org/owasp/00ff9d" alt="OWASP">
+                        </div>
+                        <span class="label">SQLmap & OWASP ZAP</span>
+                    </div>
+                    <span class="info-icon">cmd</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('tool_hashcat')">
-                    <span class="label">Hashcat, John & Hydra</span>
-                    <span class="info-icon">[cmd]</span>
+                    <div class="item-left">
+                        <div class="icon-box">🔓</div>
+                        <span class="label">Hashcat, John & Hydra</span>
+                    </div>
+                    <span class="info-icon">cmd</span>
                 </div>
                 <div class="skill-item" onclick="inspectItem('tool_fastapi')">
-                    <span class="label">FastAPI & Docker</span>
-                    <span class="info-icon">[cmd]</span>
+                    <div class="item-left">
+                        <div class="icon-box">
+                            <img src="https://cdn.simpleicons.org/fastapi/00ff9d" alt="FastAPI">
+                        </div>
+                        <span class="label">FastAPI & Docker</span>
+                    </div>
+                    <span class="info-icon">cmd</span>
                 </div>
             </div>
         </section>
@@ -1011,14 +1111,14 @@
             <h2 class="section-title">CERTIFICATIONS.crt</h2>
             <div class="command-line">
                 <span class="prompt">openssl x509 -in verified_credentials.crt -text</span>
-                <span class="click-hint">[Click any certificate to inspect & view original]</span>
+                <span class="click-hint">[Click any certificate to inspect & expand]</span>
             </div>
             <div class="cert-grid">
                 <!-- 1. Cisco Ethical Hacker -->
                 <div class="cert-card" onclick="inspectItem('cert_cisco_eh')">
                     <div>
                         <div class="cert-visual">
-                            <img id="img_cisco_eh" src="https://i.imgur.com/vAjm9Hm.jpeg" alt="Ethical Hacker" class="cert-image" onerror="this.style.display='none'">
+                            <img id="img_cisco_eh" src="https://i.imgur.com/aSj3xy0.png" alt="Ethical Hacker" class="cert-image" onerror="this.style.display='none'">
                             <div class="cert-fallback">
                                 <div class="cert-badge-icon">🛡️</div>
                                 <div class="cert-badge-org">CISCO NETWORKING ACADEMY</div>
@@ -1027,7 +1127,7 @@
                             <div class="cert-overlay"><span>🔍 Click to View Certificate</span></div>
                         </div>
                         <span class="cert-order-tag">01 // CISCO OFFENSIVE SECURITY</span>
-                        <p class="cert-name">[+] Ethical Hacker</p>
+                        <p class="cert-name">🛡️ Ethical Hacker</p>
                     </div>
                     <p class="cert-issuer">Cisco Networking Academy • Issued Feb 2026</p>
                 </div>
@@ -1045,7 +1145,7 @@
                             <div class="cert-overlay"><span>🔍 Click to View Certificate</span></div>
                         </div>
                         <span class="cert-order-tag">02 // CISCO CYBER DEFENSE</span>
-                        <p class="cert-name">[+] Introduction to Cybersecurity</p>
+                        <p class="cert-name">🔐 Introduction to Cybersecurity</p>
                     </div>
                     <p class="cert-issuer">Cisco Networking Academy • Issued Jan 2026</p>
                 </div>
@@ -1054,7 +1154,7 @@
                 <div class="cert-card" onclick="inspectItem('cert_kc7')">
                     <div>
                         <div class="cert-visual">
-                            <img id="img_kc7" src="https://i.imgur.com/3kdiQKw.jpeg" alt="KC7 Titan Shield" class="cert-image" onerror="this.style.display='none'">
+                            <img id="img_kc7" src="https://i.imgur.com/BH25xI6.png" alt="KC7 Titan Shield" class="cert-image" onerror="this.style.display='none'">
                             <div class="cert-fallback">
                                 <div class="cert-badge-icon">🕵️‍♂️</div>
                                 <div class="cert-badge-org">KC7: THE CYBER DETECTIVE GAME</div>
@@ -1063,7 +1163,7 @@
                             <div class="cert-overlay"><span>🔍 Click to View KC7 Credential</span></div>
                         </div>
                         <span class="cert-order-tag">03 // KC7 THREAT INTELLIGENCE</span>
-                        <p class="cert-name">[+] KC7: Titan Shield (with Rap Beef & Valdorian Times)</p>
+                        <p class="cert-name">🕵️‍♂️ KC7: Titan Shield (with Rap Beef & Valdorian Times)</p>
                     </div>
                     <p class="cert-issuer">KC7 Cyber Detective • IDs: 95926, 95962, 96243</p>
                 </div>
@@ -1076,7 +1176,7 @@
                             <div class="cert-overlay"><span>🔍 Click to Expand & Read</span></div>
                         </div>
                         <span class="cert-order-tag">04 // IEEE RECOGNITION</span>
-                        <p class="cert-name">[+] Certificate IEEE</p>
+                        <p class="cert-name">🏅 Certificate IEEE</p>
                     </div>
                     <p class="cert-issuer">IEEE Technical Credential</p>
                 </div>
@@ -1089,7 +1189,7 @@
                             <div class="cert-overlay"><span>🔍 Click to Expand & Read</span></div>
                         </div>
                         <span class="cert-order-tag">05 // EMERGING TECH</span>
-                        <p class="cert-name">[+] Certificate NextGen Tech</p>
+                        <p class="cert-name">⚡ Certificate NextGen Tech</p>
                     </div>
                     <p class="cert-issuer">NextGen Technology & Security</p>
                 </div>
@@ -1102,7 +1202,7 @@
                             <div class="cert-overlay"><span>🔍 Click to Expand & Read</span></div>
                         </div>
                         <span class="cert-order-tag">06 // DATA & TELEMETRY</span>
-                        <p class="cert-name">[+] Data Analysis Certificate</p>
+                        <p class="cert-name">📊 Data Analysis Certificate</p>
                     </div>
                     <p class="cert-issuer">Security Log & Data Analytics</p>
                 </div>
@@ -1150,37 +1250,45 @@
     </div>
 
     <script>
-        // Auto-resolve Imgur album links if public API allows
-        const imgurAlbums = [
-            { albumId: 'V20N7am', elId: 'heroProfileImg', dbKey: null },
-            { albumId: 'vAjm9Hm', elId: 'img_cisco_eh', dbKey: 'cert_cisco_eh' },
-            { albumId: 'geNjIX6', elId: 'img_cisco_intro', dbKey: 'cert_cisco_intro' },
-            { albumId: '3kdiQKw', elId: 'img_kc7', dbKey: 'cert_kc7' }
-        ];
-
-        imgurAlbums.forEach(item => {
-            fetch(`https://api.imgur.com/3/album/${item.albumId}/images`, {
-                headers: { 'Authorization': 'Client-ID 546c25a59c58ad7' }
-            })
-            .then(r => r.json())
-            .then(data => {
-                if (data && data.data && data.data.length > 0) {
-                    const directUrl = data.data[0].link;
-                    const el = document.getElementById(item.elId);
-                    if (el) {
-                        el.src = directUrl;
-                        el.style.display = 'block';
-                    }
-                    if (item.dbKey && detailsDB[item.dbKey]) {
-                        detailsDB[item.dbKey].image = directUrl;
-                    }
+        // Auto-resolve the Intro to Cybersecurity Imgur album if public API allows
+        fetch('https://api.imgur.com/3/album/geNjIX6/images', {
+            headers: { 'Authorization': 'Client-ID 546c25a59c58ad7' }
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.data && data.data.length > 0) {
+                const directUrl = data.data[0].link;
+                const el = document.getElementById('img_cisco_intro');
+                if (el) {
+                    el.src = directUrl;
+                    el.style.display = 'block';
                 }
-            })
-            .catch(() => {});
-        });
+                if (detailsDB.cert_cisco_intro) {
+                    detailsDB.cert_cisco_intro.image = directUrl;
+                }
+            }
+        })
+        .catch(() => {});
+
+        function openProfilePreview() {
+            inspectItem('profile_photo');
+        }
 
         // Database of Interactive Details for Every Item
         const detailsDB = {
+            profile_photo: {
+                cmd: "open_image --file profile_avatar.png",
+                title: "MD Atikur Rahman",
+                subtitle: "Ethical Hacker | Cybersecurity Intern @ Khanovate",
+                image: "https://i.imgur.com/jToT5c0.png",
+                extUrl: "https://i.imgur.com/jToT5c0.png",
+                desc: "Final-year Cybersecurity student and Security Tool Builder focused on offensive & defensive security engineering.",
+                bullets: [
+                    "Creator of Phantom, BicharBD, SentinelX, and CyberMentor AI.",
+                    "Currently working as a Cybersecurity Intern at Khanovate (Malaysia)."
+                ],
+                code: "Status: AUTHENTICATED | Location: Malaysia / Bangladesh"
+            },
             intern: {
                 cmd: "cat /experience/khanovate_internship.log",
                 title: "Cybersecurity Intern @ Khanovate",
@@ -1465,15 +1573,15 @@
                 cmd: "verify-cert --issuer 'Cisco Networking Academy' --name 'Ethical Hacker'",
                 title: "Ethical Hacker — Cisco Networking Academy",
                 subtitle: "Issued Feb 2026 • Verified Credential",
-                image: "https://i.imgur.com/vAjm9Hm.jpeg",
-                extUrl: "https://imgur.com/a/vAjm9Hm",
+                image: "https://i.imgur.com/aSj3xy0.png",
+                extUrl: "https://i.imgur.com/aSj3xy0.png",
                 desc: "Comprehensive offensive security certification covering the mindset, methodology, and hands-on tools of professional ethical hacking.",
                 bullets: [
                     "Key Skills: Ethical Hacking, Penetration Testing, Vulnerability Scanning, Reconnaissance.",
                     "Exploitation of web applications, networks, and system vulnerabilities in lab environments.",
                     "Reporting and remediation strategies for discovered security flaws."
                 ],
-                code: "Credential URL: https://imgur.com/a/vAjm9Hm | Issued: Feb 2026"
+                code: "Credential Image: https://i.imgur.com/aSj3xy0.png | Issued: Feb 2026"
             },
             cert_cisco_intro: {
                 cmd: "verify-cert --issuer 'Cisco Networking Academy' --name 'Introduction to Cybersecurity'",
@@ -1493,15 +1601,15 @@
                 cmd: "verify-cert --issuer 'KC7 Cyber Detective' --module 'Titan Shield'",
                 title: "KC7: Titan Shield (with Rap Beef & Valdorian Times)",
                 subtitle: "Issued Oct 2026 • Threat Intelligence & KQL Intrusion Analysis",
-                image: "https://i.imgur.com/3kdiQKw.jpeg",
-                extUrl: "https://imgur.com/a/3kdiQKw",
+                image: "https://i.imgur.com/BH25xI6.png",
+                extUrl: "https://i.imgur.com/BH25xI6.png",
                 desc: "Completed hands-on cyber threat intelligence and SOC investigation challenges using real-world telemetry and Kusto Query Language (KQL).",
                 bullets: [
                     "Titan Shield (Credential ID: 95926) — Deep-dive threat hunting, log correlation, and adversary attribution.",
                     "Rap Beef (Credential ID: 95962) — Analyzed endpoint logs, DNS telemetry, and attacker pivoting.",
                     "Valdorian Times (Credential ID: 96243) — Investigated phishing campaigns, C2 traffic, and APT activity."
                 ],
-                code: "Credential URL: https://imgur.com/a/3kdiQKw | IDs: #95926, #95962, #96243"
+                code: "Credential Image: https://i.imgur.com/BH25xI6.png | IDs: #95926, #95962, #96243"
             },
             cert_ieee: {
                 cmd: "open_credential --file ieee_certificate.jpg",
